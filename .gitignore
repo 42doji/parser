@@ -1,0 +1,6 @@
+.aider*
+.env
+.idea/
+blueprints/
+cmake*
+

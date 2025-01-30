@@ -1,0 +1,81 @@
+#include "../include/cub3d.h"
+
+static t_map *create_map(void);
+static int init_map_values(t_map *map);
+static int print_init_map(t_map *map);
+t_map *init_map(void);
+
+static t_map *create_map(void)
+{
+	t_map *map;
+
+    map = (t_map *)malloc(sizeof(t_map));
+    if (!map)
+    {
+        error_handler(MALLOC_ERROR);
+        return (NULL);
+    }
+    return (map);
+}
+
+static int init_map_values(t_map *map)
+{
+	int i;
+
+	if (!map)
+	{
+		error_handler(MALLOC_ERROR);
+		return (0);
+	}
+	i = 0;
+	while (i < 4)
+	{
+		map->texture[i] = NULL;
+		i++;
+	}
+	map->floor_color[0] = -1;
+	map->floor_color[1] = -1;
+	map->floor_color[2] = -1;
+	map->ceiling_color[0] = -1;
+	map->ceiling_color[1] = -1;
+	map->ceiling_color[2] = -1;
+	map->width = -1;
+	map->height = -1;
+	return (1);
+}
+
+static int print_init_map(t_map *map)
+{
+	if (!map)
+    {
+        error_handler(MALLOC_ERROR);
+        return (0);
+    }
+	printf("--------------------\n");
+	printf("MAP INIT------------\n");
+	printf("--------------------\n");
+	printf("NO: %s\n", map->texture[NO]);
+	printf("SO: %s\n", map->texture[SO]);
+	printf("EA: %s\n", map->texture[EA]);
+	printf("WE: %s\n", map->texture[WE]);
+	printf("floor_color: %d, %d, %d\n", map->floor_color[0], map->floor_color[1], map->floor_color[2]);
+	printf("ceiling_color: %d, %d, %d\n", map->ceiling_color[0], map->ceiling_color[1], map->ceiling_color[2]);
+	printf("width: %d\n", map->width);
+	printf("height: %d\n", map->height);
+	printf("--------------------\n");
+	printf("MAP INIT END--------\n");
+	printf("--------------------\n");
+	return (1);
+}
+
+t_map *init_map(void)
+{
+    t_map *map;
+
+	map = create_map();
+	if (!init_map_values(map))
+	    return (NULL);
+	if (!print_init_map(map))
+        return (NULL);
+	return (map);
+}
