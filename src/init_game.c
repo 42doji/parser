@@ -123,7 +123,6 @@ int init_game(t_game *game, t_map *map)
     {
         mlx_destroy_image(game->mlx, game->img.img);
         mlx_destroy_window(game->mlx, game->win);
-        free_map_resources(game, game->map);
         return (0);
     }
     init_player(game);
