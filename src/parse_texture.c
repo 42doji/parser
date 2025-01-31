@@ -16,6 +16,7 @@ int  parse_texture(const char *line, t_map *map, int texture_index)
 	if (map->texture[texture_index].path)
 	{
 		free_split(split);
+		free_map_resources(NULL, map);
 		error_handler(TEXTURE_ERROR);
 		return (0);
 	}
