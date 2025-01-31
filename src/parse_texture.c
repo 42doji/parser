@@ -1,8 +1,5 @@
 #include "cub3d.h"
 
-
-
-
 int  parse_texture(const char *line, t_map *map, int texture_index)
 {
 	char    **split;

@@ -62,10 +62,13 @@ int main(int argc, char **argv)
 	t_game game;
 
 	ft_bzero(&game, sizeof(t_game));
-	if (!validate_arguments(argc, argv[1])) return (EXIT_FAILURE);
+	if (!validate_arguments(argc, argv[1]))
+		return (EXIT_FAILURE);
 	map = setup_map(argv[1]);
-	if (!map) return (EXIT_FAILURE);
-	if (!setup_game(&game, map)) return (EXIT_FAILURE);
+	if (!map)
+		return (EXIT_FAILURE);
+	if (!setup_game(&game, map))
+		return (EXIT_FAILURE);
 	setup_hooks(&game);
 	mlx_loop(game.mlx);
 	return (EXIT_SUCCESS);

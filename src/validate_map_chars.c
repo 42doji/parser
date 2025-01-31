@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 static void	print_map_error(char c, int i, int j)
 {
 	ft_putstr_fd("Invalid character '", 2);
@@ -58,7 +57,6 @@ static int	validate_map_content(char **grid, int height, int width)
 	}
 	return (1);
 }
-
 
 static int	check_player_count(char **grid, int height, int width)
 {

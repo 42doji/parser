@@ -3,14 +3,7 @@
 
 #define MAX_ELAPSED_TIME (1.0 / TARGET_FPS)
 
-/**
- * @brief Calculates elapsed time between current and last frame
- * 
- * @param last_time Previous frame timestamp
- * @param current_time Current frame timestamp
- * @return double Time elapsed in seconds
- */
-static double	calculate_elapsed_time(struct timeval *last_time, 
+static double	calculate_elapsed_time(struct timeval *last_time,
     struct timeval *current_time)
 {
     double	elapsed;
@@ -26,12 +19,6 @@ static double	calculate_elapsed_time(struct timeval *last_time,
     return (elapsed);
 }
 
-/**
- * @brief Main game loop function
- * 
- * @param game Pointer to game state
- * @return int Always returns 0
- */
 int	game_loop(t_game *game)
 {
     static struct timeval	last_time = {0, 0};

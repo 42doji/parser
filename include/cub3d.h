@@ -38,7 +38,6 @@ void	free_map_resources(t_game *game, t_map *map);
 int		parse_map(char **lines, t_map *map);
 int		is_valid_extension(char *file_name, char *extension);
 int		is_valid_file(char *file_name);
-
 int		init_game(t_game *game, t_map *map);
 void	init_player(t_game *game);
 int     init_map_values(t_map *map);
@@ -64,5 +63,16 @@ void	cast_rays(t_game *game);
 void	draw_frame(t_game *game);
 void    put_pixel(t_game *game, int x, int y, int color);
 void    update_game_state(t_game *game, double elapsed);
+void    move_right(t_game *game, double speed);
+void    move_left(t_game *game, double speed);
+void    move_backward(t_game *game, double speed);
+void    move_forward(t_game *game, double speed);
+void    perform_dda(t_game *game, t_ray *ray);
+void    draw_wall_line(t_game *game, t_ray *ray, int x);
+int     get_texture_number(t_ray *ray);
+int     get_texture_color(t_img *texture, int x, int y);
+void    calculate_step_and_side_dist(t_game *game, t_ray *ray);
+void    calculate_wall_distance(t_game *game, t_ray *ray);
+void    init_ray(t_game *game, t_ray *ray, int x);
 
 #endif

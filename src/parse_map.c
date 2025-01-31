@@ -12,9 +12,6 @@
 
 #include "cub3d.h"
 
-
-
-
 static int	count_map_lines(char **lines)
 {
 	int	count;
