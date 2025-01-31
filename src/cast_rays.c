@@ -134,6 +134,15 @@ void	cast_rays(t_game *game)
 		calculate_step_and_side_dist(game, &ray);
 		perform_dda(game, &ray);
 		calculate_wall_distance(game, &ray);
+
+		ray.line_height = (int)(WINDOW_HEIGHT / ray.perp_wall_dist);
+		ray.draw_start = -ray.line_height / 2 + WINDOW_HEIGHT / 2;
+		if (ray.draw_start < 0)
+			ray.draw_start = 0;
+		ray.draw_end = ray.line_height / 2 + WINDOW_HEIGHT / 2;
+		if (ray.draw_end >= WINDOW_HEIGHT)
+			ray.draw_end = WINDOW_HEIGHT - 1;
+
 		draw_wall_line(game, &ray, x);
 		x++;
 	}
