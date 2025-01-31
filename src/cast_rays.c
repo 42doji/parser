@@ -82,11 +82,11 @@ void    cast_rays(t_game *game)
         calculate_step_and_side_dist(game, &ray);
         perform_dda(game, &ray);
 
-        int tex_num;
+        t_texture_type tex_num;
         if (ray.side == 0)
-            tex_num = (ray.ray_dir_x > 0) ? WE : EA;
+            tex_num = (ray.ray_dir_x > 0) ? TEXTURE_WEST : TEXTURE_EAST;
         else
-            tex_num = (ray.ray_dir_y > 0) ? SO : NO;
+            tex_num = (ray.ray_dir_y > 0) ? TEXTURE_SOUTH : TEXTURE_NORTH;
 
         double wall_x;
         if (ray.side == 0)

@@ -1,6 +1,15 @@
 #ifndef UTIL_STRUCT_H
 #define UTIL_STRUCT_H
 
+typedef enum e_texture_type
+{
+    TEXTURE_NORTH,
+    TEXTURE_SOUTH,
+    TEXTURE_EAST,
+    TEXTURE_WEST,
+    TEXTURE_COUNT
+}   t_texture_type;
+
 typedef enum e_error
 {
     NO_ERROR,
@@ -26,14 +35,5 @@ typedef enum e_error
     MAP_INITIALIZATION_ERROR,
     GAME_INITIALIZATION_ERROR
 }   t_error;
-
-typedef enum e_texture
-{
-    TEXTURE_NORTH,
-    TEXTURE_SOUTH,
-    TEXTURE_EAST,
-    TEXTURE_WEST,
-    TEXTURE_COUNT
-}   t_texture;
 
 #endif

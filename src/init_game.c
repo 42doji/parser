@@ -2,53 +2,53 @@
 
 int load_textures(t_game *game)
 {
-    game->map->texture[NO].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[NO].path, 
-        &game->map->texture[NO].img.width, 
-        &game->map->texture[NO].img.height);
-    game->map->texture[SO].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[SO].path, 
-        &game->map->texture[SO].img.width, 
-        &game->map->texture[SO].img.height);
-    game->map->texture[EA].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[EA].path, 
-        &game->map->texture[EA].img.width, 
-        &game->map->texture[EA].img.height);
-    game->map->texture[WE].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[WE].path, 
-        &game->map->texture[WE].img.width, 
-        &game->map->texture[WE].img.height);
+    game->map->texture[TEXTURE_NORTH].img.img = mlx_xpm_file_to_image(game->mlx, 
+        game->map->texture[TEXTURE_NORTH].path, 
+        &game->map->texture[TEXTURE_NORTH].img.width, 
+        &game->map->texture[TEXTURE_NORTH].img.height);
+    game->map->texture[TEXTURE_SOUTH].img.img = mlx_xpm_file_to_image(game->mlx, 
+        game->map->texture[TEXTURE_SOUTH].path, 
+        &game->map->texture[TEXTURE_SOUTH].img.width, 
+        &game->map->texture[TEXTURE_SOUTH].img.height);
+    game->map->texture[TEXTURE_EAST].img.img = mlx_xpm_file_to_image(game->mlx, 
+        game->map->texture[TEXTURE_EAST].path, 
+        &game->map->texture[TEXTURE_EAST].img.width, 
+        &game->map->texture[TEXTURE_EAST].img.height);
+    game->map->texture[TEXTURE_WEST].img.img = mlx_xpm_file_to_image(game->mlx, 
+        game->map->texture[TEXTURE_WEST].path, 
+        &game->map->texture[TEXTURE_WEST].img.width, 
+        &game->map->texture[TEXTURE_WEST].img.height);
 
-    if (!game->map->texture[NO].img.img || !game->map->texture[SO].img.img ||
-        !game->map->texture[EA].img.img || !game->map->texture[WE].img.img)
+    if (!game->map->texture[TEXTURE_NORTH].img.img || !game->map->texture[TEXTURE_SOUTH].img.img ||
+        !game->map->texture[TEXTURE_EAST].img.img || !game->map->texture[TEXTURE_WEST].img.img)
     {
         error_handler(TEXTURE_ERROR);
         return (0);
     }
 
-    game->map->texture[NO].img.addr = mlx_get_data_addr(
-        game->map->texture[NO].img.img,
-        &game->map->texture[NO].img.bits_per_pixel,
-        &game->map->texture[NO].img.line_length,
-        &game->map->texture[NO].img.endian);
-    game->map->texture[SO].img.addr = mlx_get_data_addr(
-        game->map->texture[SO].img.img,
-        &game->map->texture[SO].img.bits_per_pixel,
-        &game->map->texture[SO].img.line_length,
-        &game->map->texture[SO].img.endian);
-    game->map->texture[EA].img.addr = mlx_get_data_addr(
-        game->map->texture[EA].img.img,
-        &game->map->texture[EA].img.bits_per_pixel,
-        &game->map->texture[EA].img.line_length,
-        &game->map->texture[EA].img.endian);
-    game->map->texture[WE].img.addr = mlx_get_data_addr(
-        game->map->texture[WE].img.img,
-        &game->map->texture[WE].img.bits_per_pixel,
-        &game->map->texture[WE].img.line_length,
-        &game->map->texture[WE].img.endian);
+    game->map->texture[TEXTURE_NORTH].img.addr = mlx_get_data_addr(
+        game->map->texture[TEXTURE_NORTH].img.img,
+        &game->map->texture[TEXTURE_NORTH].img.bits_per_pixel,
+        &game->map->texture[TEXTURE_NORTH].img.line_length,
+        &game->map->texture[TEXTURE_NORTH].img.endian);
+    game->map->texture[TEXTURE_SOUTH].img.addr = mlx_get_data_addr(
+        game->map->texture[TEXTURE_SOUTH].img.img,
+        &game->map->texture[TEXTURE_SOUTH].img.bits_per_pixel,
+        &game->map->texture[TEXTURE_SOUTH].img.line_length,
+        &game->map->texture[TEXTURE_SOUTH].img.endian);
+    game->map->texture[TEXTURE_EAST].img.addr = mlx_get_data_addr(
+        game->map->texture[TEXTURE_EAST].img.img,
+        &game->map->texture[TEXTURE_EAST].img.bits_per_pixel,
+        &game->map->texture[TEXTURE_EAST].img.line_length,
+        &game->map->texture[TEXTURE_EAST].img.endian);
+    game->map->texture[TEXTURE_WEST].img.addr = mlx_get_data_addr(
+        game->map->texture[TEXTURE_WEST].img.img,
+        &game->map->texture[TEXTURE_WEST].img.bits_per_pixel,
+        &game->map->texture[TEXTURE_WEST].img.line_length,
+        &game->map->texture[TEXTURE_WEST].img.endian);
 
-    if (!game->map->texture[NO].img.addr || !game->map->texture[SO].img.addr ||
-        !game->map->texture[EA].img.addr || !game->map->texture[WE].img.addr)
+    if (!game->map->texture[TEXTURE_NORTH].img.addr || !game->map->texture[TEXTURE_SOUTH].img.addr ||
+        !game->map->texture[TEXTURE_EAST].img.addr || !game->map->texture[TEXTURE_WEST].img.addr)
     {
         error_handler(TEXTURE_ERROR);
         return (0);
