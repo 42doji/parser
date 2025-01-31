@@ -12,9 +12,9 @@
 
 #include "../include/cub3d.h"
 
-static t_map *create_map(void)
+static    t_map *create_map(void)
 {
-    t_map *map;
+    t_map    *map;
 
     map = (t_map *)malloc(sizeof(t_map));
     if (!map)
@@ -25,9 +25,9 @@ static t_map *create_map(void)
     return (map);
 }
 
-static int init_map_values(t_map *map)
+static int    init_map_values(t_map *map)
 {
-    int i;
+    int    i;
 
     if (!map)
     {
@@ -52,9 +52,9 @@ static int init_map_values(t_map *map)
     return (1);
 }
 
-static void print_map(t_map *map)
+static void    print_map(t_map *map)
 {
-    int i;
+    int    i;
 
     i = 0;
     while (map->grid[i])
@@ -64,7 +64,7 @@ static void print_map(t_map *map)
     }
 }
 
-static int print_init_map(t_map *map)
+static int    print_init_map(t_map *map)
 {
     if (!map)
     {
@@ -88,9 +88,9 @@ static int print_init_map(t_map *map)
     return (1);
 }
 
-t_map *init_map(char *file_name)
+t_map    *init_map(char *file_name)
 {
-    t_map *map;
+    t_map    *map;
 
     map = create_map();
     if (!init_map_values(map))

@@ -12,9 +12,26 @@
 
 #include "cub3d.h"
 
-static void trim_line_endings(char *line)
+
+static int  append_map_line(char ***map_lines, int *map_size, char *line)
 {
-    size_t len;
+	char    **temp;
+
+	temp = realloc(*map_lines, sizeof(char *) * (*map_size + 2));
+	if (!temp)
+		return (error_handler(MALLOC_ERROR), 0);
+	*map_lines = temp;
+	(*map_lines)[*map_size] = ft_strdup(line);
+	if (!(*map_lines)[*map_size])
+		return (error_handler(MALLOC_ERROR), 0);
+	(*map_size)++;
+	(*map_lines)[*map_size] = NULL;
+	return (1);
+}
+
+static void    trim_line_endings(char *line)
+{
+    size_t    len;
 
     len = ft_strlen(line);
     while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
@@ -24,9 +41,9 @@ static void trim_line_endings(char *line)
     }
 }
 
-static int parse_texture(char *line, t_map *map, int texture_index)
+static int    parse_texture(char *line, t_map *map, int texture_index)
 {
-    char **split;
+    char    **split;
 
     trim_line_endings(line);
     split = ft_split(line, ' ');
@@ -47,11 +64,11 @@ static int parse_texture(char *line, t_map *map, int texture_index)
     return (1);
 }
 
-static int parse_color(char *line, int *color)
+static int    parse_color(char *line, int *color)
 {
-    char **split;
-    char **colors;
-    int i;
+    char    **split;
+    char    **colors;
+    int    i;
 
     trim_line_endings(line);
     split = ft_split(line, ' ');
@@ -82,7 +99,7 @@ static int parse_color(char *line, int *color)
     return (1);
 }
 
-static int parse_settings(char *line, t_map *map)
+static int    parse_settings(char *line, t_map *map)
 {
     if (ft_strncmp(line, "NO ", 3) == 0)
         return (parse_texture(line, map, NO));
@@ -99,9 +116,9 @@ static int parse_settings(char *line, t_map *map)
     return (error_handler(TEXTURE_ERROR), 0);
 }
 
-static int check_settings_complete(t_map *map)
+static int    check_settings_complete(t_map *map)
 {
-    int i;
+    int    i;
 
     i = 0;
     while (i < TEXTURE_COUNT)
@@ -115,12 +132,12 @@ static int check_settings_complete(t_map *map)
     return (1);
 }
 
-int parse_cub_file(char *file_name, t_map *map)
+int    parse_cub_file(char *file_name, t_map *map)
 {
-    int fd;
-    char *line;
-    char **map_lines;
-    int map_size;
+    int    fd;
+    char    *line;
+    char    **map_lines;
+    int    map_size;
 
     fd = open(file_name, O_RDONLY);
     if (fd == -1)
@@ -144,25 +161,12 @@ int parse_cub_file(char *file_name, t_map *map)
             }
             else
             {
-                char **temp = realloc(map_lines, sizeof(char *) * (map_size + 2));
-                if (!temp)
-                {
-                    free(line);
-                    close(fd);
-                    free_split(map_lines);
-                    return (error_handler(MALLOC_ERROR), 0);
-                }
-                map_lines = temp;
-                map_lines[map_size] = ft_strdup(line);
-                if (!map_lines[map_size])
-                {
-                    free(line);
-                    close(fd);
-                    free_split(map_lines);
-                    return (error_handler(MALLOC_ERROR), 0);
-                }
-                map_size++;
-                map_lines[map_size] = NULL;
+            	if (!append_map_line(&map_lines, &map_size, line))
+            	{
+            		free(line);
+            		close(fd);
+            		return (0);
+            	}
             }
         }
         free(line);
