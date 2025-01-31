@@ -90,7 +90,7 @@ int	parse_map(char **lines, t_map *map)
 		error_handler(MAP_SIZE_ERROR, NULL, map);
 		return (0);
 	}
-	map->grid = create_map_grid(lines, map->height, map->width);
+	map->grid = create_map_grid(lines, map->height, map->width, map);
 	if (!map->grid)
 		return (0);
 	if (!validate_map_chars(map->grid, map->height, map->width))

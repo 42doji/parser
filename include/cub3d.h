@@ -55,7 +55,7 @@ int     parse_texture(const char *line, t_map *map, int texture_index, const cha
 int     validate_map_chars(char **grid, int height, int width);
 int     is_valid_map_char(char c);
 int     init_grid_row(char **grid, int i, int width, t_map *map);
-char    **create_map_grid(char **lines, int height, int width);
+char    **create_map_grid(char **lines, int height, int width, t_map *map);
 int		load_textures(t_game *game);
 int		game_loop(t_game *game);
 int		handle_keypress(int keycode, void *param);

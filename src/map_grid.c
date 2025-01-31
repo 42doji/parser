@@ -22,7 +22,7 @@ static char	**allocate_grid(int height)
 	return (grid);
 }
 
-static void	fill_grid(char **grid, char **lines, int height, int width)
+static void	fill_grid(char **grid, char **lines, int height, int width, t_map *map)
 {
 	int	i;
 	int	j;
@@ -30,7 +30,7 @@ static void	fill_grid(char **grid, char **lines, int height, int width)
 	i = 0;
 	while (i < height)
 	{
-		if (!init_grid_row(grid, i, width))
+		if (!init_grid_row(grid, i, width, map))
 			return ;
 		j = 0;
 		while (lines[i][j] && j < width)
@@ -43,7 +43,7 @@ static void	fill_grid(char **grid, char **lines, int height, int width)
 	grid[height] = NULL;
 }
 
-char	**create_map_grid(char **lines, int height, int width)
+char	**create_map_grid(char **lines, int height, int width, t_map *map)
 {
 	char	**grid;
 
@@ -52,6 +52,6 @@ char	**create_map_grid(char **lines, int height, int width)
 	grid = allocate_grid(height);
 	if (!grid)
 		return (NULL);
-	fill_grid(grid, lines, height, width);
+	fill_grid(grid, lines, height, width, map);
 	return (grid);
 }
