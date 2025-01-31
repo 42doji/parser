@@ -12,7 +12,7 @@ int  process_line(char *line, t_map *map, char ***map_lines, int *map_size)
 		}
 		else
 		{
-			if (!append_map_line(map_lines, map_size, line))
+			if (!append_map_line(map_lines, map_size, line, map))
 				return (0);
 		}
 	}
