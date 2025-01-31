@@ -44,12 +44,12 @@ static int	init_map_values(t_map *map)
 		map->texture[i].img.height = 0;
 		i++;
 	}
-	map->floor_color[0] = -1;
-	map->floor_color[1] = -1;
-	map->floor_color[2] = -1;
-	map->ceiling_color[0] = -1;
-	map->ceiling_color[1] = -1;
-	map->ceiling_color[2] = -1;
+	map->floor_color.r = 0;
+	map->floor_color.g = 0;
+	map->floor_color.b = 0;
+	map->ceiling_color.r = 0;
+	map->ceiling_color.g = 0;
+	map->ceiling_color.b = 0;
 	map->width = -1;
 	map->height = -1;
 	map->grid = NULL;
@@ -79,10 +79,10 @@ static int	print_init_map(t_map *map)
 	printf("SO: %s\n", map->texture[SO].path ? map->texture[SO].path : "Not Loaded");
 	printf("EA: %s\n", map->texture[EA].path ? map->texture[EA].path : "Not Loaded");
 	printf("WE: %s\n", map->texture[WE].path ? map->texture[WE].path : "Not Loaded");
-	printf("floor_color: %d, %d, %d\n", map->floor_color[0],
-		map->floor_color[1], map->floor_color[2]);
-	printf("ceiling_color: %d, %d, %d\n", map->ceiling_color[0],
-		map->ceiling_color[1], map->ceiling_color[2]);
+	printf("floor_color: %d, %d, %d\n", map->floor_color.r,
+		map->floor_color.g, map->floor_color.b);
+	printf("ceiling_color: %d, %d, %d\n", map->ceiling_color.r,
+		map->ceiling_color.g, map->ceiling_color.b);
 	printf("width: %d, height: %d.\n", map->width, map->height);
 	print_map(map);
 	printf("--------------------\n");

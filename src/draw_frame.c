@@ -16,12 +16,12 @@ void	draw_floor_ceiling(t_game *game)
 	int	ceiling_color;
 	int	floor_color;
 
-	ceiling_color = (game->map->ceiling_color[0] << 16) |
-		(game->map->ceiling_color[1] << 8) |
-		game->map->ceiling_color[2];
-	floor_color = (game->map->floor_color[0] << 16) |
-		(game->map->floor_color[1] << 8) |
-		game->map->floor_color[2];
+	ceiling_color = (game->map->ceiling_color.r << 16) |
+	                (game->map->ceiling_color.g << 8) |
+	                game->map->ceiling_color.b;
+	floor_color = (game->map->floor_color.r << 16) |
+	              (game->map->floor_color.g << 8) |
+	              game->map->floor_color.b;
 	y = 0;
 	while (y < WINDOW_HEIGHT)
 	{
