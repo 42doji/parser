@@ -125,6 +125,19 @@ int init_game(t_game *game, t_map *map)
         mlx_destroy_window(game->mlx, game->win);
         return (0);
     }
+
+    // Initialize key states
+    game->keys.w = 0;
+    game->keys.a = 0;
+    game->keys.s = 0;
+    game->keys.d = 0;
+    game->keys.left = 0;
+    game->keys.right = 0;
+
+    printf("Keys initialized - W: %d, A: %d, S: %d, D: %d, LEFT: %d, RIGHT: %d\n",
+           game->keys.w, game->keys.a, game->keys.s, game->keys.d,
+           game->keys.left, game->keys.right);
+
     init_player(game);
     return (1);
 }
