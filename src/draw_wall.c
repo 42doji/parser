@@ -35,7 +35,7 @@ static void	draw_wall_pixels(t_game *game, t_ray *ray, int x, int tex_num, int t
 		color = get_texture_color(&game->map->texture[tex_num].img,
 			tex_x, ((y - WINDOW_HEIGHT / 2 + ray->line_height / 2) *
 			game->map->texture[tex_num].img.height) / ray->line_height);
-		put_pixel(game, x, y, color);
+		put_pixel(&game->img, x, y, color);
 		y++;
 	}
 }

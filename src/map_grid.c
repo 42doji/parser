@@ -18,7 +18,7 @@ static char	**allocate_grid(int height)
 
 	grid = (char **)malloc(sizeof(char *) * (height + 1));
 	if (!grid)
-		error_handler(MALLOC_ERROR);
+		error_handler(MALLOC_ERROR, NULL, NULL);
 	return (grid);
 }
 

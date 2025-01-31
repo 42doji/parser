@@ -1,9 +1,10 @@
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -MMD -MP
+AFTER_DEBUG_FLAGS = -O2 -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -Llibft -lft -Lmlx -lmlx -lXext -lX11 -lm -lbsd
-
+MAKEFLAGS += -j4
 SRC_DIR = src
 OBJ_DIR = obj
 MLX_DIR = mlx

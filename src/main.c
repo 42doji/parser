@@ -16,12 +16,12 @@ static int validate_arguments(int argc, char *filename)
 {
 	if (argc != 2)
 	{
-		error_handler(INVALID_ARGUMENTS);
+		error_handler(INVALID_ARGUMENTS, NULL, NULL);
 		return (0);
 	}
 	if (!is_valid_extension(filename, ".cub"))
 	{
-		error_handler(INVALID_FILE_EXTENSION);
+		error_handler(INVALID_FILE_EXTENSION, NULL, NULL);
 		return (0);
 	}
 	if (!is_valid_file(filename)) return (0);
@@ -33,7 +33,7 @@ static t_map *setup_map(char *filename)
 	t_map *map;
 
 	map = init_map(filename);
-	if (!map) error_handler(MAP_INITIALIZATION_ERROR);
+	if (!map) error_handler(MAP_INITIALIZATION_ERROR, NULL, NULL);
 	return (map);
 }
 
@@ -42,7 +42,7 @@ static int setup_game(t_game *game, t_map *map)
 	if (!init_game(game, map))
 	{
 		free_map_resources(game, map);
-		error_handler(GAME_INITIALIZATION_ERROR);
+		error_handler(GAME_INITIALIZATION_ERROR, game, map);
 		return (0);
 	}
 	return (1);

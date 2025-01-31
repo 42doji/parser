@@ -13,8 +13,8 @@
 #ifndef RENDER_STRUCT_H
 # define RENDER_STRUCT_H
 
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 720
+# define WINDOW_WIDTH 720
+# define WINDOW_HEIGHT 480
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.03
 # define TARGET_FPS 60.0
