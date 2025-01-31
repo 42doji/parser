@@ -27,17 +27,17 @@ static int	is_wall_breach(char **grid, int i, int j, t_map *map)
 	return (0);
 }
 
-static int	validate_grid_and_map(char **grid, t_map *map, t_game *game)
+static int	validate_grid_and_map(char **grid, t_map *map)
 {
 	if (!grid || !map)
 	{
-		error_handler(MAP_WALL_ERROR, game, map);
+		error_handler(MAP_WALL_ERROR, NULL, map);
 		return (0);
 	}
 	return (1);
 }
 
-static int	validate_wall_integrity(char **grid, t_map *map, t_game *game)
+static int	validate_wall_integrity(char **grid, t_map *map)
 {
 	int	i;
 	int	j;
@@ -52,7 +52,7 @@ static int	validate_wall_integrity(char **grid, t_map *map, t_game *game)
 			{
 				if (is_wall_breach(grid, i, j, map))
 				{
-					error_handler(MAP_WALL_ERROR, game, map);
+					error_handler(MAP_WALL_ERROR, NULL, map);
 					return (0);
 				}
 			}
@@ -63,9 +63,9 @@ static int	validate_wall_integrity(char **grid, t_map *map, t_game *game)
 	return (1);
 }
 
-int	check_walls(char **grid, t_map *map, t_game *game)
+int	check_walls(char **grid, t_map *map)
 {
-	if (!validate_grid_and_map(grid, map, game))
+	if (!validate_grid_and_map(grid, map))
 		return (0);
-	return (validate_wall_integrity(grid, map, game));
+	return (validate_wall_integrity(grid, map));
 }
