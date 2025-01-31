@@ -24,3 +24,48 @@
    obj:*/libmlx.so
    ...
 }
+
+{
+   MLX_XOpenDisplay
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:XOpenDisplay
+   ...
+}
+
+{
+   MLX_XInitExtension
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:XInitExtension
+   ...
+}
+
+{
+   MLX_XCBConnection
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:xcb_connect_to_display_with_auth_info
+   ...
+}
+
+{
+   MLX_XCreateGC
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:XCreateGC
+   ...
+}
+
+{
+   MLX_XGetVisualInfo
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:XGetVisualInfo
+   ...
+}
