@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void    error_handler(t_error error)
+void    error_handler(t_error error, t_game *game, t_map *map)
 {
     const char *error_msg[] = {
         "Error: No error",
@@ -39,9 +39,15 @@ void    error_handler(t_error error)
         "Error: Game initialization failed",
         "Error: Duplicate key detected"
     };
-    if (error >= 0 && error < sizeof(error_msg) / sizeof(error_msg[0]))
+    if (error >= 0 && error < (int)(sizeof(error_msg) / sizeof(error_msg[0])))
         ft_putendl_fd((char *)error_msg[error], 2);
     else
         ft_putendl_fd("Error: Unknown error", 2);
+
+    if (map)
+        cleanup_map(map);
+    if (game)
+        cleanup_game(game);
+    get_next_line_cleanup(4);
     exit(EXIT_FAILURE);
 }
