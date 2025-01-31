@@ -30,10 +30,7 @@ static int	init_map_values(t_map *map)
 	int	i;
 
 	if (!map)
-	{
-		error_handler(MALLOC_ERROR);
 		return (0);
-	}
 	i = 0;
 	while (i < TEXTURE_COUNT)
 	{
@@ -74,10 +71,7 @@ static void	print_map(t_map *map)
 static int	print_init_map(t_map *map)
 {
 	if (!map)
-	{
-		error_handler(MALLOC_ERROR);
 		return (0);
-	}
 	printf("--------------------\n");
 	printf("MAP INIT------------\n");
 	printf("--------------------\n");
@@ -136,8 +130,13 @@ t_map	*init_map(char *file_name)
 	t_map	*map;
 
 	map = create_map();
-	if (!init_map_values(map))
+	if (!map)
 		return (NULL);
+	if (!init_map_values(map))
+	{
+		cleanup_map(map);
+		return (NULL);
+	}
 	if (!parse_cub_file(file_name, map))
 	{
 		error_handler(TEXTURE_ERROR);
@@ -145,6 +144,9 @@ t_map	*init_map(char *file_name)
 		return (NULL);
 	}
 	if (!print_init_map(map))
+	{
+		cleanup_map(map);
 		return (NULL);
+	}
 	return (map);
 }
