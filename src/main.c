@@ -12,28 +12,36 @@
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+static void	cleanup_all_fd(void)
 {
-    t_map   *map;
+	int	fd;
 
-    if (argc != 2)
-    {
-        error_handler(ARG_ERROR);
-        return (EXIT_FAILURE);
-    }
-    if (!is_valid_extension(argv[1], ".cub"))
-    {
-        error_handler(FILE_NAME_ERROR);
-        return (EXIT_FAILURE);
-    }
-    if (!is_valid_file(argv[1]))
-    {
-        return (EXIT_FAILURE);
-    }
-    map = init_map(argv[1]);
-    if (!map)
-        return (EXIT_FAILURE);
-    // 게임 초기화 및 실행 로직 추가 필요
-    free_map_resources(map);
-    return (0);
+	for (fd = 0; fd < 4096; fd++)
+		get_next_line_cleanup(fd);
+}
+
+int	main(int argc, char **argv)
+{
+	t_map	*map;
+
+	atexit(cleanup_all_fd);
+	if (argc != 2)
+	{
+		error_handler(ARG_ERROR);
+		return (EXIT_FAILURE);
+	}
+	if (!is_valid_extension(argv[1], ".cub"))
+	{
+		error_handler(FILE_NAME_ERROR);
+		return (EXIT_FAILURE);
+	}
+	if (!is_valid_file(argv[1]))
+	{
+		return (EXIT_FAILURE);
+	}
+	map = init_map(argv[1]);
+	if (!map)
+		return (EXIT_FAILURE);
+	free_map_resources(map);
+	return (0);
 }
