@@ -51,5 +51,6 @@ int		close_window(t_game *game);
 void	cast_rays(t_game *game);
 void	draw_frame(t_game *game);
 void    put_pixel(t_game *game, int x, int y, int color);
+void    update_game_state(t_game *game, double elapsed);
 
 #endif
