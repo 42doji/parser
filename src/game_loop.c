@@ -1,77 +1,49 @@
 #include "cub3d.h"
 #include <sys/time.h>
 
-static void	update_player_movement(t_game *game, double elapsed)
+#define MAX_ELAPSED_TIME (1.0 / TARGET_FPS)
+
+/**
+ * @brief Calculates elapsed time between current and last frame
+ * 
+ * @param last_time Previous frame timestamp
+ * @param current_time Current frame timestamp
+ * @return double Time elapsed in seconds
+ */
+static double	calculate_elapsed_time(struct timeval *last_time, 
+    struct timeval *current_time)
 {
-	if (game->keys.w)
-	{
-		if (game->map->grid[(int)(game->player.pos_y)]
-			[(int)(game->player.pos_x + game->player.dir_x * MOVE_SPEED)] != '1')
-			game->player.pos_x += game->player.dir_x * MOVE_SPEED * elapsed * TARGET_FPS;
-		if (game->map->grid[(int)(game->player.pos_y + game->player.dir_y
-				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
-			game->player.pos_y += game->player.dir_y * MOVE_SPEED * elapsed * TARGET_FPS;
-	}
-	if (game->keys.s)
-	{
-		if (game->map->grid[(int)(game->player.pos_y)]
-			[(int)(game->player.pos_x - game->player.dir_x * MOVE_SPEED)] != '1')
-			game->player.pos_x -= game->player.dir_x * MOVE_SPEED * elapsed * TARGET_FPS;
-		if (game->map->grid[(int)(game->player.pos_y - game->player.dir_y
-				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
-			game->player.pos_y -= game->player.dir_y * MOVE_SPEED * elapsed * TARGET_FPS;
-	}
-	if (game->keys.left || game->keys.d)
-	{
-		double old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(ROT_SPEED * elapsed * TARGET_FPS)
-			- game->player.dir_y * sin(ROT_SPEED * elapsed * TARGET_FPS);
-		game->player.dir_y = old_dir_x * sin(ROT_SPEED * elapsed * TARGET_FPS)
-			+ game->player.dir_y * cos(ROT_SPEED * elapsed * TARGET_FPS);
-		double old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(ROT_SPEED * elapsed * TARGET_FPS)
-			- game->player.plane_y * sin(ROT_SPEED * elapsed * TARGET_FPS);
-		game->player.plane_y = old_plane_x * sin(ROT_SPEED * elapsed * TARGET_FPS)
-			+ game->player.plane_y * cos(ROT_SPEED * elapsed * TARGET_FPS);
-	}
-	if (game->keys.right || game->keys.a)
-	{
-		double old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED * elapsed * TARGET_FPS)
-			- game->player.dir_y * sin(-ROT_SPEED * elapsed * TARGET_FPS);
-		game->player.dir_y = old_dir_x * sin(-ROT_SPEED * elapsed * TARGET_FPS)
-			+ game->player.dir_y * cos(-ROT_SPEED * elapsed * TARGET_FPS);
-		double old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED * elapsed * TARGET_FPS)
-			- game->player.plane_y * sin(-ROT_SPEED * elapsed * TARGET_FPS);
-		game->player.plane_y = old_plane_x * sin(-ROT_SPEED * elapsed * TARGET_FPS)
-			+ game->player.plane_y * cos(-ROT_SPEED * elapsed * TARGET_FPS);
-	}
+    double	elapsed;
+
+    gettimeofday(current_time, NULL);
+    if (last_time->tv_sec == 0 && last_time->tv_usec == 0)
+    {
+        *last_time = *current_time;
+        return (0.0);
+    }
+    elapsed = (current_time->tv_sec - last_time->tv_sec) +
+        (current_time->tv_usec - last_time->tv_usec) / 1000000.0;
+    return (elapsed);
 }
 
-static void	update_game_state(t_game *game, double elapsed)
-{
-	update_player_movement(game, elapsed);
-}
-
+/**
+ * @brief Main game loop function
+ * 
+ * @param game Pointer to game state
+ * @return int Always returns 0
+ */
 int	game_loop(t_game *game)
 {
-	static struct timeval	last_time = {0, 0};
-	struct timeval			current_time;
-	double					elapsed;
+    static struct timeval	last_time = {0, 0};
+    struct timeval			current_time;
+    double					elapsed;
 
-	gettimeofday(&current_time, NULL);
-	if (last_time.tv_sec == 0 && last_time.tv_usec == 0)
-		last_time = current_time;
-
-	elapsed = (current_time.tv_sec - last_time.tv_sec) +
-		(current_time.tv_usec - last_time.tv_usec) / 1000000.0;
-
-	if (elapsed >= 1.0 / TARGET_FPS)
-	{
-		update_game_state(game, elapsed);
-		draw_frame(game);
-		last_time = current_time;
-	}
-	return (0);
+    elapsed = calculate_elapsed_time(&last_time, &current_time);
+    if (elapsed >= MAX_ELAPSED_TIME)
+    {
+        update_game_state(game, elapsed);
+        draw_frame(game);
+        last_time = current_time;
+    }
+    return (0);
 }

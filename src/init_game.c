@@ -1,93 +1,59 @@
 #include "cub3d.h"
 
-int load_textures(t_game *game)
+static int	load_single_texture(t_game *game, int texture_index)
 {
+    game->map->texture[texture_index].img.img = mlx_xpm_file_to_image(
+        game->mlx,
+        game->map->texture[texture_index].path,
+        &game->map->texture[texture_index].img.width,
+        &game->map->texture[texture_index].img.height
+    );
+    if (!game->map->texture[texture_index].img.img)
+    {
+        #ifdef DEBUG
+        printf("Failed to load texture %d\n", texture_index);
+        #endif
+        return (0);
+    }
+    
+    game->map->texture[texture_index].img.addr = mlx_get_data_addr(
+        game->map->texture[texture_index].img.img,
+        &game->map->texture[texture_index].img.bits_per_pixel,
+        &game->map->texture[texture_index].img.line_length,
+        &game->map->texture[texture_index].img.endian
+    );
+    if (!game->map->texture[texture_index].img.addr)
+    {
+        #ifdef DEBUG
+        printf("Failed to get texture address %d\n", texture_index);
+        #endif
+        return (0);
+    }
+    return (1);
+}
+
+int	load_textures(t_game *game)
+{
+    int i;
+
+    #ifdef DEBUG
     printf("Loading textures...\n");
-    printf("North texture path: %s\n", game->map->texture[TEXTURE_NORTH].path);
-    printf("South texture path: %s\n", game->map->texture[TEXTURE_SOUTH].path);
-    printf("East texture path: %s\n", game->map->texture[TEXTURE_EAST].path);
-    printf("West texture path: %s\n", game->map->texture[TEXTURE_WEST].path);
-
-    game->map->texture[TEXTURE_NORTH].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[TEXTURE_NORTH].path, 
-        &game->map->texture[TEXTURE_NORTH].img.width, 
-        &game->map->texture[TEXTURE_NORTH].img.height);
-    game->map->texture[TEXTURE_SOUTH].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[TEXTURE_SOUTH].path, 
-        &game->map->texture[TEXTURE_SOUTH].img.width, 
-        &game->map->texture[TEXTURE_SOUTH].img.height);
-    game->map->texture[TEXTURE_EAST].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[TEXTURE_EAST].path, 
-        &game->map->texture[TEXTURE_EAST].img.width, 
-        &game->map->texture[TEXTURE_EAST].img.height);
-    game->map->texture[TEXTURE_WEST].img.img = mlx_xpm_file_to_image(game->mlx, 
-        game->map->texture[TEXTURE_WEST].path, 
-        &game->map->texture[TEXTURE_WEST].img.width, 
-        &game->map->texture[TEXTURE_WEST].img.height);
-
-    if (!game->map->texture[TEXTURE_NORTH].img.img)
-        printf("Failed to load North texture\n");
-    if (!game->map->texture[TEXTURE_SOUTH].img.img)
-        printf("Failed to load South texture\n");
-    if (!game->map->texture[TEXTURE_EAST].img.img)
-        printf("Failed to load East texture\n");
-    if (!game->map->texture[TEXTURE_WEST].img.img)
-        printf("Failed to load West texture\n");
-
-    if (!game->map->texture[TEXTURE_NORTH].img.img || !game->map->texture[TEXTURE_SOUTH].img.img ||
-        !game->map->texture[TEXTURE_EAST].img.img || !game->map->texture[TEXTURE_WEST].img.img)
+    #endif
+    
+    i = 0;
+    while (i < TEXTURE_COUNT)
     {
-        error_handler(TEXTURE_ERROR);
-        return (0);
+        if (!load_single_texture(game, i))
+        {
+            error_handler(TEXTURE_ERROR);
+            return (0);
+        }
+        i++;
     }
-
-    game->map->texture[TEXTURE_NORTH].img.addr = mlx_get_data_addr(
-        game->map->texture[TEXTURE_NORTH].img.img,
-        &game->map->texture[TEXTURE_NORTH].img.bits_per_pixel,
-        &game->map->texture[TEXTURE_NORTH].img.line_length,
-        &game->map->texture[TEXTURE_NORTH].img.endian);
-    game->map->texture[TEXTURE_SOUTH].img.addr = mlx_get_data_addr(
-        game->map->texture[TEXTURE_SOUTH].img.img,
-        &game->map->texture[TEXTURE_SOUTH].img.bits_per_pixel,
-        &game->map->texture[TEXTURE_SOUTH].img.line_length,
-        &game->map->texture[TEXTURE_SOUTH].img.endian);
-    game->map->texture[TEXTURE_EAST].img.addr = mlx_get_data_addr(
-        game->map->texture[TEXTURE_EAST].img.img,
-        &game->map->texture[TEXTURE_EAST].img.bits_per_pixel,
-        &game->map->texture[TEXTURE_EAST].img.line_length,
-        &game->map->texture[TEXTURE_EAST].img.endian);
-    game->map->texture[TEXTURE_WEST].img.addr = mlx_get_data_addr(
-        game->map->texture[TEXTURE_WEST].img.img,
-        &game->map->texture[TEXTURE_WEST].img.bits_per_pixel,
-        &game->map->texture[TEXTURE_WEST].img.line_length,
-        &game->map->texture[TEXTURE_WEST].img.endian);
-
-    if (!game->map->texture[TEXTURE_NORTH].img.addr)
-        printf("Failed to get North texture address\n");
-    if (!game->map->texture[TEXTURE_SOUTH].img.addr)
-        printf("Failed to get South texture address\n");
-    if (!game->map->texture[TEXTURE_EAST].img.addr)
-        printf("Failed to get East texture address\n");
-    if (!game->map->texture[TEXTURE_WEST].img.addr)
-        printf("Failed to get West texture address\n");
-
-    if (!game->map->texture[TEXTURE_NORTH].img.addr || !game->map->texture[TEXTURE_SOUTH].img.addr ||
-        !game->map->texture[TEXTURE_EAST].img.addr || !game->map->texture[TEXTURE_WEST].img.addr)
-    {
-        error_handler(TEXTURE_ERROR);
-        return (0);
-    }
-
-    printf("Texture loading complete. Dimensions:\n");
-    printf("North: %dx%d\n", game->map->texture[TEXTURE_NORTH].img.width, 
-        game->map->texture[TEXTURE_NORTH].img.height);
-    printf("South: %dx%d\n", game->map->texture[TEXTURE_SOUTH].img.width, 
-        game->map->texture[TEXTURE_SOUTH].img.height);
-    printf("East: %dx%d\n", game->map->texture[TEXTURE_EAST].img.width, 
-        game->map->texture[TEXTURE_EAST].img.height);
-    printf("West: %dx%d\n", game->map->texture[TEXTURE_WEST].img.width, 
-        game->map->texture[TEXTURE_WEST].img.height);
-
+    
+    #ifdef DEBUG
+    printf("Texture loading complete.\n");
+    #endif
     return (1);
 }
 
@@ -126,7 +92,6 @@ int init_game(t_game *game, t_map *map)
         return (0);
     }
 
-    // Initialize key states
     game->keys.w = 0;
     game->keys.a = 0;
     game->keys.s = 0;
@@ -134,9 +99,11 @@ int init_game(t_game *game, t_map *map)
     game->keys.left = 0;
     game->keys.right = 0;
 
+    #ifdef DEBUG
     printf("Keys initialized - W: %d, A: %d, S: %d, D: %d, LEFT: %d, RIGHT: %d\n",
            game->keys.w, game->keys.a, game->keys.s, game->keys.d,
            game->keys.left, game->keys.right);
+    #endif
 
     init_player(game);
     return (1);
