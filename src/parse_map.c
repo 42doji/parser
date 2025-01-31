@@ -19,7 +19,7 @@ static int	count_map_lines(char **lines)
 
 	if (!lines)
 	{
-		error_handler(MAP_SIZE_ERROR);
+		error_handler(MAP_SIZE_ERROR, NULL, NULL);
 		return (0);
 	}
 	count = 0;
@@ -53,14 +53,14 @@ static int	get_map_width(char **lines)
 	return (max_width);
 }
 
-int	init_grid_row(char **grid, int i, int width)
+int	init_grid_row(char **grid, int i, int width, t_map *map)
 {
 	if (!grid)
 		return (0);
 	grid[i] = (char *)malloc(sizeof(char) * (width + 1));
 	if (!grid[i])
 	{
-		error_handler(MALLOC_ERROR);
+		error_handler(MALLOC_ERROR, NULL, map);
 		while (--i >= 0)
 			free(grid[i]);
 		free(grid);
@@ -74,18 +74,30 @@ int	init_grid_row(char **grid, int i, int width)
 int	parse_map(char **lines, t_map *map)
 {
 	if (!lines || !map)
-		return (error_handler(MAP_SIZE_ERROR), 0);
+	{
+		error_handler(MAP_SIZE_ERROR, NULL, map);
+		return (0);
+	}
 	map->height = count_map_lines(lines);
 	if (map->height < 3)
-		return (error_handler(MAP_SIZE_ERROR), 0);
+	{
+		error_handler(MAP_SIZE_ERROR, NULL, map);
+		return (0);
+	}
 	map->width = get_map_width(lines);
 	if (map->width < 3)
-		return (error_handler(MAP_SIZE_ERROR), 0);
+	{
+		error_handler(MAP_SIZE_ERROR, NULL, map);
+		return (0);
+	}
 	map->grid = create_map_grid(lines, map->height, map->width);
 	if (!map->grid)
 		return (0);
 	if (!validate_map_chars(map->grid, map->height, map->width))
+	{
+		error_handler(MAP_SIZE_ERROR, NULL, map);
 		return (0);
+	}
 	if (!check_walls(map->grid, map))
 		return (0);
 	return (1);
