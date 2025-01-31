@@ -13,12 +13,12 @@
 #ifndef MAP_STRUCT_H
 #define MAP_STRUCT_H
 
+#include "render_struct.h"
+
 typedef struct s_texture_path
 {
 	char *path;
 	t_img img;
-	int width;
-	int height;
 } t_texture_path;
 
 typedef struct s_map

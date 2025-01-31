@@ -60,6 +60,8 @@ typedef struct s_ray
 	int draw_end;
 } t_ray;
 
+typedef struct s_map t_map;
+
 typedef struct s_game
 {
 	void *mlx;

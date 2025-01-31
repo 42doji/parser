@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	put_pixel(t_game *game, int x, int y, int color)
+void	put_pixel(t_game *game, int x, int y, int color)
 {
 	char	*dst;
 

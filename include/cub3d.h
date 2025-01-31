@@ -22,7 +22,6 @@
 # include "../libft/libft.h"
 # include "util_struct.h"
 # include "map_struct.h"
-# include "render_struct.h"
 
 # define KEY_ESC 53
 # define KEY_W 13
