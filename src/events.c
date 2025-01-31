@@ -1,7 +1,9 @@
 #include "cub3d.h"
 
-int	handle_keypress(int keycode, t_game *game)
+int	handle_keypress(int keycode, void *param)
 {
+    t_game *game = (t_game *)param;
+
     #ifdef DEBUG
     printf("Key Pressed: %d\n", keycode);
     #endif
@@ -23,8 +25,10 @@ int	handle_keypress(int keycode, t_game *game)
     return (0);
 }
 
-int	handle_key_release(int keycode, t_game *game)
+int	handle_keyrelease(int keycode, void *param)
 {
+    t_game *game = (t_game *)param;
+
     #ifdef DEBUG
     printf("Key Released: %d\n", keycode);
     #endif
