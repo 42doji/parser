@@ -40,7 +40,7 @@ int		parse_map(char **lines, t_map *map);
 int		is_valid_extension(char *file_name, char *extension);
 int		is_valid_file(char *file_name);
 
-// New function prototypes
+// Game functions
 int		init_game(t_game *game, t_map *map);
 void	init_player(t_game *game);
 int		load_textures(t_game *game);
@@ -49,5 +49,6 @@ int		handle_keypress(int keycode, t_game *game);
 int		close_window(t_game *game);
 void	cast_rays(t_game *game);
 void	draw_frame(t_game *game);
+void    put_pixel(t_game *game, int x, int y, int color);
 
 #endif

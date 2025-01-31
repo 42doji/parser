@@ -25,6 +25,8 @@ typedef struct s_img
 	int bits_per_pixel;
 	int line_length;
 	int endian;
+	int width;
+	int height;
 } t_img;
 
 typedef struct s_player

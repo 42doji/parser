@@ -16,16 +16,19 @@
 typedef struct s_texture_path
 {
 	char *path;
+	t_img img;
+	int width;
+	int height;
 } t_texture_path;
 
 typedef struct s_map
 {
-	t_texture_path texture[4]; // 벽 텍스처 경로 (NO, SO, EA, WE)
-	int floor_color[3]; // 바닥 색상 (RGB)
-	int ceiling_color[3]; // 천장 색상 (RGB)
-	char **grid; // 맵을 2차원 배열로 저장
-	int width; // 맵의 너비
-	int height; // 맵의 높이
+	t_texture_path texture[4];
+	int floor_color[3];
+	int ceiling_color[3];
+	char **grid;
+	int width;
+	int height;
 } t_map;
 
 #endif
