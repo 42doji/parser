@@ -15,20 +15,27 @@
 
 #include "render_struct.h"
 
-typedef struct s_texture_path
+typedef struct s_color
 {
-	char *path;
-	t_img img;
-} t_texture_path;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} t_color;
+
+typedef struct s_texture
+{
+    char *path;
+    t_img img;
+} t_texture;
 
 typedef struct s_map
 {
-	t_texture_path texture[4];
-	int floor_color[3];
-	int ceiling_color[3];
-	char **grid;
-	int width;
-	int height;
+    t_texture texture[TEXTURE_COUNT];
+    t_color floor_color;
+    t_color ceiling_color;
+    char **grid;
+    int width;
+    int height;
 } t_map;
 
 #endif

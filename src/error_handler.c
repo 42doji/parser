@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	error_handler(t_error error)
+void    error_handler(t_error error)
 {
     const char *error_msg[] = {
         "Error: No error",
@@ -28,7 +28,15 @@ void	error_handler(t_error error)
         "Error: Invalid map walls",
         "Error: Invalid number of players",
         "Error: Invalid map characters",
-        "Error: Map size is too small"
+        "Error: Map size is too small",
+        "Error: MLX initialization failed",
+        "Error: MLX window creation failed",
+        "Error: MLX image creation failed",
+        "Error: MLX data address retrieval failed",
+        "Error: Invalid arguments",
+        "Error: Invalid file extension",
+        "Error: Map initialization failed",
+        "Error: Game initialization failed"
     };
     if (error >= 0 && error < sizeof(error_msg) / sizeof(error_msg[0]))
         ft_putendl_fd((char *)error_msg[error], 2);

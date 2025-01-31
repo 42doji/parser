@@ -29,10 +29,10 @@ typedef enum e_error
 
 typedef enum e_texture
 {
-    NO,
-    SO,
-    EA,
-    WE,
+    TEXTURE_NORTH,
+    TEXTURE_SOUTH,
+    TEXTURE_EAST,
+    TEXTURE_WEST,
     TEXTURE_COUNT
 }   t_texture;
 
