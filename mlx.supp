@@ -1,0 +1,26 @@
+{
+   MLX_writev_warning
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   ...
+}
+
+{
+   MLX_reachable_memory
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0
+   ...
+}
+
+{
+   MLX_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libmlx.so
+   ...
+}

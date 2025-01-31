@@ -43,6 +43,6 @@ analyze:
 	@which clang-tidy > /dev/null 2>&1 && clang-tidy $(SRC_DIR)/*.c -- $(INC) || echo "clang-tidy not installed"
 
 memcheck: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) test_maps/valid_map.cub
+	valgrind --suppressions=mlx.supp --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) test_maps/valid_map.cub
 
 .PHONY: all clean fclean re analyze memcheck
