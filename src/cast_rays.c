@@ -61,7 +61,7 @@ static void	perform_dda(t_game *game, t_ray *ray)
 	}
 }
 
-static void	calculate_wall_distance(t_ray *ray)
+static void	calculate_wall_distance(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->map_x - game->player.pos_x + 
@@ -133,7 +133,7 @@ void	cast_rays(t_game *game)
 		init_ray(game, &ray, x);
 		calculate_step_and_side_dist(game, &ray);
 		perform_dda(game, &ray);
-		calculate_wall_distance(&ray);
+		calculate_wall_distance(game, &ray);
 		draw_wall_line(game, &ray, x);
 		x++;
 	}
