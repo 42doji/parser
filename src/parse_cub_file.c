@@ -13,21 +13,26 @@
 #include "cub3d.h"
 #include "libft.h"
 
-int  append_map_line(char ***map_lines, int *map_size, char *line)
+int  append_map_line(char ***map_lines, int *map_size, char *line, t_map *map)
 {
     char    **temp;
 
-    temp = realloc(*map_lines, sizeof(char *) * (*map_size + 2));
+    temp = malloc(sizeof(char *) * (*map_size + 2));
     if (!temp)
     {
-        error_handler(MALLOC_ERROR);
+        error_handler(MALLOC_ERROR, NULL, map);
         return (0);
+    }
+    if (*map_lines)
+    {
+        ft_memcpy(temp, *map_lines, sizeof(char *) * (*map_size));
+        free(*map_lines);
     }
     *map_lines = temp;
     (*map_lines)[*map_size] = ft_strdup(line);
     if (!(*map_lines)[*map_size])
     {
-        error_handler(MALLOC_ERROR);
+        error_handler(MALLOC_ERROR, NULL, map);
         return (0);
     }
     (*map_lines)[*map_size + 1] = NULL;
@@ -35,7 +40,7 @@ int  append_map_line(char ***map_lines, int *map_size, char *line)
     return (1);
 }
 
-static int validate_color_values(char **colors, t_color *color)
+static int validate_color_values(char **colors, t_color *color, t_map *map)
 {
     int r, g, b;
 
@@ -45,7 +50,7 @@ static int validate_color_values(char **colors, t_color *color)
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
     {
         free_split(colors);
-        error_handler(COLOR_ERROR);
+        error_handler(COLOR_ERROR, NULL, map);
         return (0);
     }
     color->r = r;
@@ -55,7 +60,7 @@ static int validate_color_values(char **colors, t_color *color)
     return (1);
 }
 
-static int  parse_color(const char *line, t_color *color)
+static int  parse_color(const char *line, t_color *color, t_map *map)
 {
     char    **split;
     char    **colors;
@@ -65,7 +70,7 @@ static int  parse_color(const char *line, t_color *color)
     if (!split || !split[1] || split[2])
     {
         free_split(split);
-        error_handler(COLOR_ERROR);
+        error_handler(COLOR_ERROR, NULL, map);
         return (0);
     }
     colors = ft_split(split[1], ',');
@@ -73,27 +78,27 @@ static int  parse_color(const char *line, t_color *color)
     if (!colors || ft_splitlen(colors) != 3)
     {
         free_split(colors);
-        error_handler(COLOR_ERROR);
+        error_handler(COLOR_ERROR, NULL, map);
         return (0);
     }
-    return (validate_color_values(colors, color));
+    return (validate_color_values(colors, color, map));
 }
 
 int  parse_settings(const char *line, t_map *map)
 {
     if (ft_strncmp(line, "NO ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_NORTH, "NO"));
+        return (parse_texture(line, map, TEXTURE_NORTH, "NO", NULL));
     else if (ft_strncmp(line, "SO ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_SOUTH, "SO"));
+        return (parse_texture(line, map, TEXTURE_SOUTH, "SO", NULL));
     else if (ft_strncmp(line, "EA ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_EAST, "EA"));
+        return (parse_texture(line, map, TEXTURE_EAST, "EA", NULL));
     else if (ft_strncmp(line, "WE ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_WEST, "WE"));
+        return (parse_texture(line, map, TEXTURE_WEST, "WE", NULL));
     else if (ft_strncmp(line, "F ", 2) == 0)
-        return (parse_color(line, &map->floor_color));
+        return (parse_color(line, &map->floor_color, map));
     else if (ft_strncmp(line, "C ", 2) == 0)
-        return (parse_color(line, &map->ceiling_color));
-    error_handler(TEXTURE_ERROR);
+        return (parse_color(line, &map->ceiling_color, map));
+    error_handler(TEXTURE_ERROR, NULL, map);
     return (0);
 }
 
