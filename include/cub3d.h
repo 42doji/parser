@@ -23,7 +23,6 @@
 # include "util_struct.h"
 # include "map_struct.h"
 
-/* Linux key codes */
 # define KEY_ESC 65307
 # define KEY_W 119
 # define KEY_A 97
@@ -40,7 +39,6 @@ int		parse_map(char **lines, t_map *map);
 int		is_valid_extension(char *file_name, char *extension);
 int		is_valid_file(char *file_name);
 
-/* Game functions */
 int		init_game(t_game *game, t_map *map);
 void	init_player(t_game *game);
 int		load_textures(t_game *game);

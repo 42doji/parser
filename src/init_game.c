@@ -9,13 +9,7 @@ static int	load_single_texture(t_game *game, int texture_index)
         &game->map->texture[texture_index].img.height
     );
     if (!game->map->texture[texture_index].img.img)
-    {
-        #ifdef DEBUG
-        printf("Failed to load texture %d\n", texture_index);
-        #endif
         return (0);
-    }
-    
     game->map->texture[texture_index].img.addr = mlx_get_data_addr(
         game->map->texture[texture_index].img.img,
         &game->map->texture[texture_index].img.bits_per_pixel,
@@ -23,12 +17,7 @@ static int	load_single_texture(t_game *game, int texture_index)
         &game->map->texture[texture_index].img.endian
     );
     if (!game->map->texture[texture_index].img.addr)
-    {
-        #ifdef DEBUG
-        printf("Failed to get texture address %d\n", texture_index);
-        #endif
         return (0);
-    }
     return (1);
 }
 
@@ -36,10 +25,6 @@ int	load_textures(t_game *game)
 {
     int i;
 
-    #ifdef DEBUG
-    printf("Loading textures...\n");
-    #endif
-    
     i = 0;
     while (i < TEXTURE_COUNT)
     {
@@ -50,10 +35,6 @@ int	load_textures(t_game *game)
         }
         i++;
     }
-
-    #ifdef DEBUG
-    printf("Texture loading complete.\n");
-    #endif
     return (1);
 }
 
@@ -97,11 +78,6 @@ int init_game(t_game *game, t_map *map)
     game->keys.d = 0;
     game->keys.left = 0;
     game->keys.right = 0;
-    #ifdef DEBUG
-    printf("Keys initialized - W: %d, A: %d, S: %d, D: %d, LEFT: %d, RIGHT: %d\n",
-           game->keys.w, game->keys.a, game->keys.s, game->keys.d,
-           game->keys.left, game->keys.right);
-    #endif
     init_player(game);
     return (1);
 }

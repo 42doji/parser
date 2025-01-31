@@ -86,16 +86,16 @@ void	update_game_state(t_game *game, double elapsed)
 	double	move_speed;
 	double	rot_speed;
 
-	move_speed = MOVE_SPEED * elapsed;
-	rot_speed = ROT_SPEED * elapsed;
+	move_speed = MOVE_SPEED * elapsed * 15;
+	rot_speed = ROT_SPEED * elapsed * 15;
 	if (game->keys.w)
 		move_forward(game, move_speed);
 	if (game->keys.s)
 		move_backward(game, move_speed);
 	if (game->keys.a)
-		move_left(game, move_speed);
+		move_left(game, -move_speed);
 	if (game->keys.d)
-		move_right(game, move_speed);
+		move_right(game, -move_speed);
 	if (game->keys.left)
 		rotate_player(game, -rot_speed);
 	if (game->keys.right)

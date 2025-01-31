@@ -95,7 +95,7 @@ static int	print_init_map(t_map *map)
 	return (1);
 }
 
-static void	cleanup_map(t_map *map)
+static void	free_textures(t_map *map)
 {
 	int	i;
 
@@ -111,21 +111,34 @@ static void	cleanup_map(t_map *map)
 		}
 		i++;
 	}
-	if (map->grid)
+}
+
+static void	free_grid(t_map *map)
+{
+	int	i;
+
+	if (!map || !map->grid)
+		return ;
+	i = 0;
+	while (i < map->height)
 	{
-		i = 0;
-		while (i < map->height)
+		if (map->grid[i])
 		{
-			if (map->grid[i])
-			{
-				free(map->grid[i]);
-				map->grid[i] = NULL;
-			}
-			i++;
+			free(map->grid[i]);
+			map->grid[i] = NULL;
 		}
-		free(map->grid);
-		map->grid = NULL;
+		i++;
 	}
+	free(map->grid);
+	map->grid = NULL;
+}
+
+void	cleanup_map(t_map *map)
+{
+	if (!map)
+		return ;
+	free_textures(map);
+	free_grid(map);
 	free(map);
 }
 
