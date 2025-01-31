@@ -19,6 +19,12 @@
 # define ROT_SPEED 0.03
 # define TARGET_FPS 60.0
 
+# define TEXTURE_NORTH 0
+# define TEXTURE_SOUTH 1
+# define TEXTURE_EAST  2
+# define TEXTURE_WEST  3
+# define TEXTURE_COUNT 4
+
 typedef struct s_img
 {
     void    *img;
