@@ -35,6 +35,8 @@ static int	check_player_count(char **grid, int height, int width)
 	int	j;
 	int	count;
 
+	if (!grid)
+		return (0);
 	count = 0;
 	i = 0;
 	while (i < height)
@@ -57,6 +59,11 @@ static int	validate_map_chars(char **grid, int height, int width)
 	int	i;
 	int	j;
 
+	if (!grid || height <= 0 || width <= 0)
+	{
+		error_handler(MAP_SIZE_ERROR);
+		return (0);
+	}
 	i = 0;
 	while (i < height)
 	{
@@ -83,6 +90,8 @@ static int	validate_map_chars(char **grid, int height, int width)
 
 static int	is_wall_breach(char **grid, int i, int j, t_map *map)
 {
+	if (!grid || !map)
+		return (1);
 	if (i == 0 || i == map->height - 1 || j == 0 || j == map->width - 1)
 		return (1);
 	if (i > 0 && i < map->height - 1 && j > 0 && j < map->width - 1)
@@ -99,6 +108,11 @@ static int	check_walls(char **grid, t_map *map)
 	int	i;
 	int	j;
 
+	if (!grid || !map)
+	{
+		error_handler(MAP_WALL_ERROR);
+		return (0);
+	}
 	i = 0;
 	while (i < map->height)
 	{
@@ -125,6 +139,11 @@ static int	count_map_lines(char **lines)
 	int	count;
 	int	i;
 
+	if (!lines)
+	{
+		error_handler(MAP_SIZE_ERROR);
+		return (0);
+	}
 	count = 0;
 	i = 0;
 	while (lines[i])
@@ -142,6 +161,8 @@ static int	get_map_width(char **lines)
 	int	current_width;
 	int	i;
 
+	if (!lines)
+		return (0);
 	max_width = 0;
 	i = 0;
 	while (lines[i])
@@ -156,6 +177,8 @@ static int	get_map_width(char **lines)
 
 static int	init_grid_row(char **grid, int i, int width)
 {
+	if (!grid)
+		return (0);
 	grid[i] = (char *)malloc(sizeof(char) * (width + 1));
 	if (!grid[i])
 	{
@@ -176,6 +199,8 @@ static char	**create_map_grid(char **lines, int height, int width)
 	int		i;
 	int		j;
 
+	if (!lines || height <= 0 || width <= 0)
+		return (NULL);
 	grid = (char **)malloc(sizeof(char *) * (height + 1));
 	if (!grid)
 	{
@@ -201,6 +226,11 @@ static char	**create_map_grid(char **lines, int height, int width)
 
 int	parse_map(char **lines, t_map *map)
 {
+	if (!lines || !map)
+	{
+		error_handler(MAP_SIZE_ERROR);
+		return (0);
+	}
 	map->height = count_map_lines(lines);
 	if (map->height < 3)
 	{
