@@ -21,7 +21,7 @@ static void	update_player_movement(t_game *game, double elapsed)
 				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
 			game->player.pos_y -= game->player.dir_y * MOVE_SPEED * elapsed * TARGET_FPS;
 	}
-	if (game->keys.left)
+	if (game->keys.left || game->keys.a)
 	{
 		double old_dir_x = game->player.dir_x;
 		game->player.dir_x = game->player.dir_x * cos(ROT_SPEED * elapsed * TARGET_FPS)
@@ -34,7 +34,7 @@ static void	update_player_movement(t_game *game, double elapsed)
 		game->player.plane_y = old_plane_x * sin(ROT_SPEED * elapsed * TARGET_FPS)
 			+ game->player.plane_y * cos(ROT_SPEED * elapsed * TARGET_FPS);
 	}
-	if (game->keys.right)
+	if (game->keys.right || game->keys.d)
 	{
 		double old_dir_x = game->player.dir_x;
 		game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED * elapsed * TARGET_FPS)
@@ -46,24 +46,6 @@ static void	update_player_movement(t_game *game, double elapsed)
 			- game->player.plane_y * sin(-ROT_SPEED * elapsed * TARGET_FPS);
 		game->player.plane_y = old_plane_x * sin(-ROT_SPEED * elapsed * TARGET_FPS)
 			+ game->player.plane_y * cos(-ROT_SPEED * elapsed * TARGET_FPS);
-	}
-	if (game->keys.a)
-	{
-		if (game->map->grid[(int)(game->player.pos_y)]
-			[(int)(game->player.pos_x - game->player.plane_x * MOVE_SPEED)] != '1')
-			game->player.pos_x -= game->player.plane_x * MOVE_SPEED * elapsed * TARGET_FPS;
-		if (game->map->grid[(int)(game->player.pos_y - game->player.plane_y
-				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
-			game->player.pos_y -= game->player.plane_y * MOVE_SPEED * elapsed * TARGET_FPS;
-	}
-	if (game->keys.d)
-	{
-		if (game->map->grid[(int)(game->player.pos_y)]
-			[(int)(game->player.pos_x + game->player.plane_x * MOVE_SPEED)] != '1')
-			game->player.pos_x += game->player.plane_x * MOVE_SPEED * elapsed * TARGET_FPS;
-		if (game->map->grid[(int)(game->player.pos_y + game->player.plane_y
-				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
-			game->player.pos_y += game->player.plane_y * MOVE_SPEED * elapsed * TARGET_FPS;
 	}
 }
 
