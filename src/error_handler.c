@@ -42,4 +42,5 @@ void    error_handler(t_error error)
         ft_putendl_fd((char *)error_msg[error], 2);
     else
         ft_putendl_fd("Error: Unknown error", 2);
+    exit(EXIT_FAILURE);
 }
