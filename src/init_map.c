@@ -40,6 +40,18 @@ static int init_map_values(t_map *map)
     return (1);
 }
 
+static void print_map(t_map *map)
+{
+    int i;
+
+    i = 0;
+    while (map->grid[i])
+    {
+        printf("%s\n", map->grid[i]);
+        i++;
+    }
+}
+
 static int print_init_map(t_map *map)
 {
     if (!map)
@@ -56,8 +68,8 @@ static int print_init_map(t_map *map)
     printf("WE: %s\n", map->texture[WE] ? map->texture[WE] : "Not Loaded");
     printf("floor_color: %d, %d, %d\n", map->floor_color[0], map->floor_color[1], map->floor_color[2]);
     printf("ceiling_color: %d, %d, %d\n", map->ceiling_color[0], map->ceiling_color[1], map->ceiling_color[2]);
-    printf("width: %d\n", map->width);
-    printf("height: %d\n", map->height);
+    printf("width: %d, height: %d.\n", map->width, map->height);
+    print_map(map);
     printf("--------------------\n");
     printf("MAP INIT END--------\n");
     printf("--------------------\n");

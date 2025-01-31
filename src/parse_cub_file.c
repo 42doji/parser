@@ -156,7 +156,6 @@ int parse_cub_file(char *file_name, t_map *map)
         free(line);
     }
     close(fd);
-
     if (!parse_map(map_lines, map))
     {
         free_split(map_lines);
