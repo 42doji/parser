@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 static int  initialize_map_lines(char ***map_lines, int *map_size)
 {
 	*map_lines = NULL;
@@ -40,17 +39,17 @@ static int	read_cub_file(int fd, t_map *map, char ***map_lines, int *map_size)
 		{
 			free(line);
 			free_map_resources(NULL, map);
-			*map_lines = NULL;           // 안전성을 위해 NULL로 설정
+			*map_lines = NULL;
 			get_next_line_cleanup(fd);
-			close(fd);
 			error_handler(MAP_SIZE_ERROR);
+			return (0);
 		}
 		free(line);
 	}
+	get_next_line_cleanup(fd);
 	if (*map_lines == NULL)
 	{
 		error_handler(MAP_SIZE_ERROR);
-		close(fd);
 		return (0);
 	}
 	return (1);
@@ -58,15 +57,14 @@ static int	read_cub_file(int fd, t_map *map, char ***map_lines, int *map_size)
 
 static int	finalize_parsing(int fd, char **map_lines, t_map *map)
 {
-	close(fd);
 	if (!parse_map(map_lines, map))
 	{
 		free_split(map_lines);
-		get_next_line_cleanup(fd);
+		close(fd);
 		return (0);
 	}
 	free_split(map_lines);
-	get_next_line_cleanup(fd);
+	close(fd);
 	return (1);
 }
 
@@ -85,6 +83,9 @@ int	parse_cub_file(char *file_name, t_map *map)
 		return (0);
 	}
 	if (!read_cub_file(fd, map, &map_lines, &map_size))
+	{
+		close(fd);
 		return (0);
+	}
 	return (finalize_parsing(fd, map_lines, map));
 }

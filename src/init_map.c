@@ -67,6 +67,7 @@ static int	print_init_map(t_map *map)
 t_map	*init_map(char *file_name)
 {
 	t_map	*map;
+	int		fd;
 
 	map = create_map();
 	if (!map)
@@ -76,12 +77,16 @@ t_map	*init_map(char *file_name)
 		cleanup_map(map);
 		return (NULL);
 	}
-	if (!parse_cub_file(file_name, map))
+	fd = open(file_name, O_RDONLY);
+	if (fd == -1 || !parse_cub_file(file_name, map))
 	{
 		error_handler(TEXTURE_ERROR);
 		cleanup_map(map);
+		if (fd != -1)
+			close(fd);
 		return (NULL);
 	}
+	close(fd);
 	if (!print_init_map(map))
 	{
 		cleanup_map(map);
