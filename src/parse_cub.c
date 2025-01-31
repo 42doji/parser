@@ -39,11 +39,19 @@ static int	read_cub_file(int fd, t_map *map, char ***map_lines, int *map_size)
 		if (!process_line(line, map, map_lines, map_size))
 		{
 			free(line);
+			free_map_resources(NULL, map);
+			*map_lines = NULL;           // 안전성을 위해 NULL로 설정
 			get_next_line_cleanup(fd);
 			close(fd);
-			return (0);
+			error_handler(MAP_SIZE_ERROR);
 		}
 		free(line);
+	}
+	if (*map_lines == NULL)
+	{
+		error_handler(MAP_SIZE_ERROR);
+		close(fd);
+		return (0);
 	}
 	return (1);
 }
