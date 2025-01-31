@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 static int	append_map_line(char ***map_lines, int *map_size, char *line)
 {
@@ -184,6 +185,7 @@ int	parse_cub_file(char *file_name, t_map *map)
 		if (!process_line(line, map, &map_lines, &map_size))
 		{
 			free(line);
+			get_next_line_cleanup(fd);
 			close(fd);
 			return (0);
 		}
@@ -191,6 +193,12 @@ int	parse_cub_file(char *file_name, t_map *map)
 	}
 	close(fd);
 	if (!parse_map(map_lines, map))
-		return (free_split(map_lines), 0);
-	return (free_split(map_lines), 1);
+	{
+		free_split(map_lines);
+		get_next_line_cleanup(fd);
+		return (0);
+	}
+	free_split(map_lines);
+	get_next_line_cleanup(fd);
+	return (1);
 }

@@ -22,6 +22,7 @@
 # include <limits.h>
 
 char	*get_next_line(int fd);
+void	get_next_line_cleanup(int fd);
 void	free_split(char **split);
 size_t	ft_splitlen(char **split);
 char	*ft_get_line(char *left_str);

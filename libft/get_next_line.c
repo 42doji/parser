@@ -98,6 +98,20 @@ static char	*ft_read_to_left_str(int fd, char *left_str)
 	return (left_str);
 }
 
+void	get_next_line_cleanup(int fd)
+{
+	static char	*left_str[4096];
+
+	if (fd >= 0 && fd < 4096)
+	{
+		if (left_str[fd])
+		{
+			free(left_str[fd]);
+			left_str[fd] = NULL;
+		}
+	}
+}
+
 char	*get_next_line(int fd)
 {
 	char		*line;
