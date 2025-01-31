@@ -1,9 +1,20 @@
 /* XPM */
-static char * example_xpm[] = {
-"5 5 1 1",
-" 	c None",
-"     ",
-" XXX ",
-" XXX ",
-" XXX ",
-"     "};
+static char *wood_wall[] = {
+"64 64 3 1",
+"  c #5A3A1A", /* 어두운 나무색 */
+". c #8C5A2A", /* 중간 밝기 나무 */
+"X c #C08040", /* 밝은 부분 */
+"................................................................",
+"................................................................",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"................................................................",
+"................................................................",
+"................................................................",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+"XXXXXXXXX..........XXXXXXXXX..........XXXXXXXXX..........XXXXXXX",
+};

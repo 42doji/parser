@@ -1,9 +1,20 @@
 /* XPM */
-static char * example_xpm[] = {
-"5 5 1 1",
-" 	c None",
-"     ",
-" XXX ",
-" XXX ",
-" XXX ",
-"     "};
+static char *brick_wall[] = {
+"64 64 3 1",
+"  c #802000", /* 짙은 갈색 (벽돌 기본 색) */
+". c #C04020", /* 밝은 벽돌색 */
+"X c #FFFFFF", /* 흰색 (박리된 부분) */
+"................................................................",
+"................................................................",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"................................................................",
+"................................................................",
+"................................................................",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+"XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXXXXXXXX...XXXXXXXXX",
+};
