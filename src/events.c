@@ -4,50 +4,35 @@ int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		close_window(game);
+	else if (keycode == KEY_W)
+		game->keys.w = 1;
+	else if (keycode == KEY_A)
+		game->keys.a = 1;
+	else if (keycode == KEY_S)
+		game->keys.s = 1;
+	else if (keycode == KEY_D)
+		game->keys.d = 1;
+	else if (keycode == KEY_LEFT)
+		game->keys.left = 1;
+	else if (keycode == KEY_RIGHT)
+		game->keys.right = 1;
+	return (0);
+}
+
+int	handle_keyrelease(int keycode, t_game *game)
+{
 	if (keycode == KEY_W)
-	{
-		if (game->map->grid[(int)(game->player.pos_y)]
-			[(int)(game->player.pos_x + game->player.dir_x * MOVE_SPEED)] != '1')
-			game->player.pos_x += game->player.dir_x * MOVE_SPEED;
-		if (game->map->grid[(int)(game->player.pos_y + game->player.dir_y
-				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
-			game->player.pos_y += game->player.dir_y * MOVE_SPEED;
-	}
-	if (keycode == KEY_S)
-	{
-		if (game->map->grid[(int)(game->player.pos_y)]
-			[(int)(game->player.pos_x - game->player.dir_x * MOVE_SPEED)] != '1')
-			game->player.pos_x -= game->player.dir_x * MOVE_SPEED;
-		if (game->map->grid[(int)(game->player.pos_y - game->player.dir_y
-				* MOVE_SPEED)][(int)(game->player.pos_x)] != '1')
-			game->player.pos_y -= game->player.dir_y * MOVE_SPEED;
-	}
-	if (keycode == KEY_A)
-	{
-		double old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(ROT_SPEED)
-			- game->player.dir_y * sin(ROT_SPEED);
-		game->player.dir_y = old_dir_x * sin(ROT_SPEED)
-			+ game->player.dir_y * cos(ROT_SPEED);
-		double old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(ROT_SPEED)
-			- game->player.plane_y * sin(ROT_SPEED);
-		game->player.plane_y = old_plane_x * sin(ROT_SPEED)
-			+ game->player.plane_y * cos(ROT_SPEED);
-	}
-	if (keycode == KEY_D)
-	{
-		double old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED)
-			- game->player.dir_y * sin(-ROT_SPEED);
-		game->player.dir_y = old_dir_x * sin(-ROT_SPEED)
-			+ game->player.dir_y * cos(-ROT_SPEED);
-		double old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED)
-			- game->player.plane_y * sin(-ROT_SPEED);
-		game->player.plane_y = old_plane_x * sin(-ROT_SPEED)
-			+ game->player.plane_y * cos(-ROT_SPEED);
-	}
+		game->keys.w = 0;
+	else if (keycode == KEY_A)
+		game->keys.a = 0;
+	else if (keycode == KEY_S)
+		game->keys.s = 0;
+	else if (keycode == KEY_D)
+		game->keys.d = 0;
+	else if (keycode == KEY_LEFT)
+		game->keys.left = 0;
+	else if (keycode == KEY_RIGHT)
+		game->keys.right = 0;
 	return (0);
 }
 

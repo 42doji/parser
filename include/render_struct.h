@@ -17,6 +17,7 @@
 # define WINDOW_HEIGHT 720
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.03
+# define TARGET_FPS 60.0
 
 typedef struct s_img
 {
@@ -60,6 +61,16 @@ typedef struct s_player
     double  plane_y;
 } t_player;
 
+typedef struct s_keys
+{
+    int     w;
+    int     a;
+    int     s;
+    int     d;
+    int     left;
+    int     right;
+} t_keys;
+
 typedef struct s_map t_map;
 
 typedef struct s_game
@@ -69,6 +80,7 @@ typedef struct s_game
     t_img       img;
     t_player    player;
     t_map       *map;
+    t_keys      keys;
 } t_game;
 
 #endif
