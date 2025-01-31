@@ -1,9 +1,22 @@
 #include "cub3d.h"
 
+static void trim_line_endings(char *line)
+{
+    size_t len;
+
+    len = ft_strlen(line);
+    while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
+    {
+        line[len - 1] = '\0';
+        len--;
+    }
+}
+
 static int parse_texture(char *line, t_map *map, int texture_index)
 {
     char **split;
 
+    trim_line_endings(line);
     split = ft_split(line, ' ');
     if (!split || !split[1] || split[2])
     {
@@ -28,6 +41,7 @@ static int parse_color(char *line, int *color)
     char **colors;
     int i;
 
+    trim_line_endings(line);
     split = ft_split(line, ' ');
     if (!split || !split[1] || split[2])
     {
@@ -104,6 +118,7 @@ int parse_cub_file(char *file_name, t_map *map)
     map_size = 0;
     while ((line = get_next_line(fd)) != NULL)
     {
+        trim_line_endings(line);
         if (ft_strlen(line) > 0)
         {
             if (!check_settings_complete(map))
