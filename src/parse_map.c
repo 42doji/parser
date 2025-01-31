@@ -52,9 +52,14 @@ static int check_walls(char **grid, int height, int width)
         {
             if (grid[i][j] != '1' && grid[i][j] != ' ')
             {
-                if (i == 0 || i == height - 1 || j == 0 || j == width - 1 ||
-                    grid[i-1][j] == ' ' || grid[i+1][j] == ' ' ||
-                    grid[i][j-1] == ' ' || grid[i][j+1] == ' ')
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1)
+                {
+                    error_handler(MAP_WALL_ERROR);
+                    return (0);
+                }
+                if (i > 0 && i < height - 1 && j > 0 && j < width - 1 &&
+                    (grid[i-1][j] == ' ' || grid[i+1][j] == ' ' ||
+                    grid[i][j-1] == ' ' || grid[i][j+1] == ' '))
                 {
                     error_handler(MAP_WALL_ERROR);
                     return (0);
