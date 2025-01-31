@@ -36,7 +36,8 @@ void    error_handler(t_error error)
         "Error: Invalid arguments",
         "Error: Invalid file extension",
         "Error: Map initialization failed",
-        "Error: Game initialization failed"
+        "Error: Game initialization failed",
+        "Error: Duplicate key detected"
     };
     if (error >= 0 && error < sizeof(error_msg) / sizeof(error_msg[0]))
         ft_putendl_fd((char *)error_msg[error], 2);

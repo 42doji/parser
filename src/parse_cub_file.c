@@ -82,13 +82,13 @@ static int  parse_color(const char *line, t_color *color)
 int  parse_settings(const char *line, t_map *map)
 {
     if (ft_strncmp(line, "NO ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_NORTH));
+        return (parse_texture(line, map, TEXTURE_NORTH, "NO"));
     else if (ft_strncmp(line, "SO ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_SOUTH));
+        return (parse_texture(line, map, TEXTURE_SOUTH, "SO"));
     else if (ft_strncmp(line, "EA ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_EAST));
+        return (parse_texture(line, map, TEXTURE_EAST, "EA"));
     else if (ft_strncmp(line, "WE ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_WEST));
+        return (parse_texture(line, map, TEXTURE_WEST, "WE"));
     else if (ft_strncmp(line, "F ", 2) == 0)
         return (parse_color(line, &map->floor_color));
     else if (ft_strncmp(line, "C ", 2) == 0)
@@ -113,5 +113,3 @@ int  check_settings_complete(t_map *map)
         return (0);
     return (1);
 }
-
-

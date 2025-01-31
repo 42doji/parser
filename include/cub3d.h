@@ -49,7 +49,7 @@ int     check_settings_complete(t_map *map);
 int     parse_settings(const char *line, t_map *map);
 int     append_map_line(char ***map_lines, int *map_size, char *line);
 void    trim_line_endings(char *line);
-int     parse_texture(const char *line, t_map *map, int texture_index);
+int     parse_texture(const char *line, t_map *map, int texture_index, const char *key);
 int     validate_map_chars(char **grid, int height, int width);
 int     is_valid_map_char(char c);
 int     init_grid_row(char **grid, int i, int width);
@@ -75,6 +75,5 @@ void    calculate_wall_distance(t_game *game, t_ray *ray);
 void    init_ray(t_game *game, t_ray *ray, int x);
 void put_pixel(t_img *img, int x, int y, int color);
 void get_next_line_cleanup(int fd);
-
 
 #endif
