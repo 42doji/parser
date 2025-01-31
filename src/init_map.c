@@ -75,10 +75,14 @@ static int	print_init_map(t_map *map)
 	printf("--------------------\n");
 	printf("MAP INIT------------\n");
 	printf("--------------------\n");
-	printf("NO: %s\n", map->texture[NO].path ? map->texture[NO].path : "Not Loaded");
-	printf("SO: %s\n", map->texture[SO].path ? map->texture[SO].path : "Not Loaded");
-	printf("EA: %s\n", map->texture[EA].path ? map->texture[EA].path : "Not Loaded");
-	printf("WE: %s\n", map->texture[WE].path ? map->texture[WE].path : "Not Loaded");
+	printf("NO: %s\n", map->texture[TEXTURE_NORTH].path ? 
+		map->texture[TEXTURE_NORTH].path : "Not Loaded");
+	printf("SO: %s\n", map->texture[TEXTURE_SOUTH].path ? 
+		map->texture[TEXTURE_SOUTH].path : "Not Loaded");
+	printf("EA: %s\n", map->texture[TEXTURE_EAST].path ? 
+		map->texture[TEXTURE_EAST].path : "Not Loaded");
+	printf("WE: %s\n", map->texture[TEXTURE_WEST].path ? 
+		map->texture[TEXTURE_WEST].path : "Not Loaded");
 	printf("floor_color: %d, %d, %d\n", map->floor_color.r,
 		map->floor_color.g, map->floor_color.b);
 	printf("ceiling_color: %d, %d, %d\n", map->ceiling_color.r,
