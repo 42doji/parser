@@ -34,9 +34,9 @@
 
 t_map	*init_map(char *file_name);
 void	error_handler(t_error error, t_game *game, t_map *map);
-int		parse_cub_file(char *file_name, t_map *map, t_game *game);
+int		parse_cub_file(char *file_name, t_map *map);
 void	free_map_resources(t_game *game, t_map *map);
-int		parse_map(char **lines, t_map *map, t_game *game);
+int		parse_map(char **lines, t_map *map);
 int		is_valid_extension(char *file_name, char *extension);
 int		is_valid_file(char *file_name);
 int		init_game(t_game *game, t_map *map);
@@ -45,13 +45,13 @@ int     init_map_values(t_map *map);
 void    cleanup_map(t_map *map);
 void    cleanup_game(t_game *game);
 void    set_player_direction(t_game *game, char direction);
-int     check_walls(char **grid, t_map *map, t_game *game);
+int     check_walls(char **grid, t_map *map);
 int     process_line(char *line, t_map *map, char ***map_lines, int *map_size);
 int     check_settings_complete(t_map *map);
-int     parse_settings(const char *line, t_map *map, t_game *game);
+int     parse_settings(const char *line, t_map *map);
 int     append_map_line(char ***map_lines, int *map_size, char *line);
 void    trim_line_endings(char *line);
-int     parse_texture(const char *line, t_map *map, int texture_index, const char *key, t_game *game);
+int     parse_texture(const char *line, t_map *map, int texture_index, const char *key);
 int     validate_map_chars(char **grid, int height, int width);
 int     is_valid_map_char(char c);
 int     init_grid_row(char **grid, int i, int width);
