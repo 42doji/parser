@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-int is_valid_file(char *file_name)
+int	is_valid_file(char *file_name)
 {
-	int fd;
+	int	fd;
 
 	if (!file_name)
 	{
