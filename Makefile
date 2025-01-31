@@ -1,6 +1,6 @@
 NAME=cub3D
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -g
+CFLAGS=-Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS=-Llibft -lft -Lmlx -lmlx -lXext -lX11 -lm -lbsd
 SRC_DIR=src
 OBJ_DIR=obj
@@ -11,7 +11,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 INC = -Iinclude -Ilibft
+
 all: $(NAME)
+
 $(NAME): $(LIBFT) $(OBJ) $(MLX)
 	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 
@@ -27,12 +29,20 @@ $(MLX):
 
 clean:
 	rm -rf $(OBJ_DIR)
-	$(MAKE) -C $(LIBFT_DIR)
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C $(MLX_DIR)
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+analyze:
+	@which cppcheck > /dev/null 2>&1 && cppcheck --enable=all $(SRC_DIR)/*.c || echo "cppcheck not installed"
+	@which clang-tidy > /dev/null 2>&1 && clang-tidy $(SRC_DIR)/*.c -- $(INC) || echo "clang-tidy not installed"
+
+memcheck: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) test_maps/valid_map.cub
+
+.PHONY: all clean fclean re analyze memcheck
