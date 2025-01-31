@@ -78,7 +78,7 @@ t_map	*init_map(char *file_name)
 		return (NULL);
 	}
 	fd = open(file_name, O_RDONLY);
-	if (fd == -1 || !parse_cub_file(file_name, map, NULL))
+	if (fd == -1 || !parse_cub_file(file_name, map))
 	{
 		error_handler(TEXTURE_ERROR, NULL, map);
 		cleanup_map(map);
