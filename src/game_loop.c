@@ -70,12 +70,7 @@ int	game_loop(t_game *game)
 	if (elapsed >= 1.0 / TARGET_FPS)
 	{
 		update_game_state(game, elapsed);
-		if (!draw_frame(game))
-		{
-			error_handler(DRAW_FRAME_ERROR);
-			close_window(game);
-			return (1);
-		}
+		draw_frame(game);
 		last_time = current_time;
 	}
 	return (0);
