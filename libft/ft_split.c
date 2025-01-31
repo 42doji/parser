@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-size_t ft_splitlen(char **split)
+size_t	ft_splitlen(char **split)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (split[i])
@@ -22,9 +22,9 @@ size_t ft_splitlen(char **split)
 	return (i);
 }
 
-void free_split(char **split)
+void	free_split(char **split)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (split[i])
