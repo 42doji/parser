@@ -24,7 +24,8 @@ typedef enum e_texture
     NO,
     SO,
     EA,
-    WE
+    WE,
+    TEXTURE_COUNT
 } t_texture;
 
 #endif
