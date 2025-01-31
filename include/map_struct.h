@@ -17,9 +17,9 @@
 
 typedef struct s_color
 {
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
+    int r;
+    int g;
+    int b;
 } t_color;
 
 typedef struct s_texture
