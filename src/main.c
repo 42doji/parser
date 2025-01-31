@@ -32,8 +32,8 @@ int	main(int argc, char **argv)
 		free_map_resources(map);
 		return (EXIT_FAILURE);
 	}
-	mlx_hook(game.window, 2, 1L << 0, handle_keypress, &game);
-	mlx_hook(game.window, 17, 0, close_window, &game);
+	mlx_hook(game.win, 2, 1L << 0, handle_keypress, &game);
+	mlx_hook(game.win, 17, 0, close_window, &game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
 	return (0);

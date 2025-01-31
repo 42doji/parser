@@ -10,7 +10,7 @@ int	handle_keypress(int keycode, t_game *game)
 int	close_window(t_game *game)
 {
 	mlx_destroy_image(game->mlx, game->img.img);
-	mlx_destroy_window(game->mlx, game->window);
+	mlx_destroy_window(game->mlx, game->win);
 	free_map_resources(game->map);
 	exit(0);
 	return (0);

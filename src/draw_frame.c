@@ -41,5 +41,5 @@ void	draw_floor_ceiling(t_game *game)
 void	draw_frame(t_game *game)
 {
 	draw_floor_ceiling(game);
-	mlx_put_image_to_window(game->mlx, game->window, game->img.img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
 }

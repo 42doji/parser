@@ -9,9 +9,9 @@ int	init_game(t_game *game, t_map *map)
 		error_handler(MLX_INIT_ERROR);
 		return (0);
 	}
-	game->window = mlx_new_window(game->mlx, WINDOW_WIDTH, 
+	game->win = mlx_new_window(game->mlx, WINDOW_WIDTH, 
 		WINDOW_HEIGHT, "cub3D");
-	if (!game->window)
+	if (!game->win)
 	{
 		error_handler(MLX_WINDOW_ERROR);
 		return (0);
