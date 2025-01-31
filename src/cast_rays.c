@@ -56,6 +56,15 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
+
+		// Check map boundaries
+		if (ray->map_x < 0 || ray->map_x >= game->map->width ||
+			ray->map_y < 0 || ray->map_y >= game->map->height)
+		{
+			ray->hit = 1;
+			return;
+		}
+
 		if (game->map->grid[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
