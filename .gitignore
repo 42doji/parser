@@ -3,4 +3,7 @@
 .idea/
 blueprints/
 cmake*
-
+src/test/*
+.gitignore.*
+.gitignore~*
+*~

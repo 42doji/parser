@@ -150,26 +150,20 @@ int parse_map(char **lines, t_map *map)
         error_handler(MAP_SIZE_ERROR);
         return (0);
     }
-
     width = get_map_width(lines);
     if (width < 3)
     {
         error_handler(MAP_SIZE_ERROR);
         return (0);
     }
-
     map->grid = create_map_grid(lines, height, width);
     if (!map->grid)
         return (0);
-
     map->height = height;
     map->width = width;
-
     if (!validate_map_chars(map->grid, height, width))
         return (0);
-
     if (!check_walls(map->grid, height, width))
         return (0);
-
     return (1);
 }
