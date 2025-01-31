@@ -21,6 +21,13 @@ static int validate_map_chars(char **grid, int height, int width)
         {
             if (!is_valid_map_char(grid[i][j]))
             {
+                ft_putstr_fd("Invalid character '", 2);
+                ft_putchar_fd(grid[i][j], 2);
+                ft_putstr_fd("' at line ", 2);
+                ft_putnbr_fd(i + 1, 2);
+                ft_putstr_fd(", column ", 2);
+                ft_putnbr_fd(j + 1, 2);
+                ft_putstr_fd("\n", 2);
                 error_handler(MAP_CHAR_ERROR);
                 return (0);
             }
