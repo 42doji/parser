@@ -44,12 +44,12 @@ static int	init_map_values(t_map *map)
 		map->texture[i].img.height = 0;
 		i++;
 	}
-	map->floor_color.r = 0;
-	map->floor_color.g = 0;
-	map->floor_color.b = 0;
-	map->ceiling_color.r = 0;
-	map->ceiling_color.g = 0;
-	map->ceiling_color.b = 0;
+	map->floor_color.r = -1;
+	map->floor_color.g = -1;
+	map->floor_color.b = -1;
+	map->ceiling_color.r = -1;
+	map->ceiling_color.g = -1;
+	map->ceiling_color.b = -1;
 	map->width = -1;
 	map->height = -1;
 	map->grid = NULL;
