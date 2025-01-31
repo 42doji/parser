@@ -18,8 +18,8 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <math.h>
-# include "mlx.h"
-# include "libft.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
 # include "util_struct.h"
 # include "map_struct.h"
 # include "render_struct.h"

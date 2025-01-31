@@ -93,18 +93,49 @@ static void	draw_vertical_line(t_game *game, t_ray *ray, int x)
 	}
 }
 
-void	cast_rays(t_game *game)
-{
-	t_ray	ray;
-	int		x;
+ static int  get_texture_color(t_img *texture, int x, int y)
+ {
+     char    *pixel;
 
-	x = 0;
-	while (x < WINDOW_WIDTH)
-	{
-		init_ray(game, &ray, x);
-		calculate_step_and_side_dist(game, &ray);
-		perform_dda(game, &ray);
-		draw_vertical_line(game, &ray, x);
-		x++;
-	}
-}
+     pixel = texture->addr + (y * texture->line_length + x * (texture->bits_per_pixel / 8));
+     return (*(unsigned int*)pixel);
+ }
+
+ void    cast_rays(t_game *game)
+ {
+     t_ray   ray;
+     int     x;
+
+     for (x = 0; x < WINDOW_WIDTH; x++)
+     {
+         init_ray(game, &ray, x);
+         calculate_step_and_side_dist(game, &ray);
+         perform_dda(game, &ray);
+
+         // 텍스처 선택
+         int tex_num;
+         if (ray.side == 0)
+             tex_num = (ray.ray_dir_x > 0) ? WE : EA;
+         else
+             tex_num = (ray.ray_dir_y > 0) ? SO : NO;
+
+         // 텍스처 X 좌표 계산
+         double wall_x;
+         if (ray.side == 0)
+             wall_x = game->player.pos_y + ray.perp_wall_dist * ray.ray_dir_y;
+         else
+             wall_x = game->player.pos_x + ray.perp_wall_dist * ray.ray_dir_x;
+         wall_x -= floor(wall_x);
+         int tex_x = (int)(wall_x * (double)game->map->texture[tex_num].width);
+         if ((ray.side == 0 && ray.ray_dir_x > 0) || (ray.side == 1 && ray.ray_dir_y < 0))
+             tex_x = game->map->texture[tex_num].width - tex_x - 1;
+
+         // 각 픽셀에 대해 텍스처 색상 가져오기 및 그리기
+         for (int y = ray.draw_start; y < ray.draw_end; y++)
+         {
+             int tex_y = ((y - WINDOW_HEIGHT / 2 + ray.line_height / 2) * game->map->texture[tex_num].height) / ray.line_height;
+             int color = get_texture_color(&game->map->texture[tex_num], tex_x, tex_y);
+             put_pixel(game, x, y, color);
+         }
+     }
+ }

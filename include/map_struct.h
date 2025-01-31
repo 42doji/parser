@@ -13,9 +13,14 @@
 #ifndef MAP_STRUCT_H
 #define MAP_STRUCT_H
 
+typedef struct s_texture_path
+{
+	char *path;
+} t_texture_path;
+
 typedef struct s_map
 {
-	char *texture[4]; // 벽 텍스처 (NO, SO, EA, WE)
+	t_texture_path texture[4]; // 벽 텍스처 경로 (NO, SO, EA, WE)
 	int floor_color[3]; // 바닥 색상 (RGB)
 	int ceiling_color[3]; // 천장 색상 (RGB)
 	char **grid; // 맵을 2차원 배열로 저장
