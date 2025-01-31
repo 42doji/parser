@@ -23,13 +23,14 @@
 # include "util_struct.h"
 # include "map_struct.h"
 
-# define KEY_ESC 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
+/* Linux key codes */
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
 t_map	*init_map(char *file_name);
 void	error_handler(t_error error);
@@ -39,12 +40,13 @@ int		parse_map(char **lines, t_map *map);
 int		is_valid_extension(char *file_name, char *extension);
 int		is_valid_file(char *file_name);
 
-// Game functions
+/* Game functions */
 int		init_game(t_game *game, t_map *map);
 void	init_player(t_game *game);
 int		load_textures(t_game *game);
 int		game_loop(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
 int		close_window(t_game *game);
 void	cast_rays(t_game *game);
 void	draw_frame(t_game *game);

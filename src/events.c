@@ -2,6 +2,7 @@
 
 int	handle_keypress(int keycode, t_game *game)
 {
+	printf("Key Pressed: %d\n", keycode);  // Debug output
 	if (keycode == KEY_ESC)
 		close_window(game);
 	else if (keycode == KEY_W)
@@ -21,6 +22,7 @@ int	handle_keypress(int keycode, t_game *game)
 
 int	handle_keyrelease(int keycode, t_game *game)
 {
+	printf("Key Released: %d\n", keycode);  // Debug output
 	if (keycode == KEY_W)
 		game->keys.w = 0;
 	else if (keycode == KEY_A)
