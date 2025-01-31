@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 static int  append_map_line(char ***map_lines, int *map_size, char *line)
 {
 	char    **temp;
