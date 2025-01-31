@@ -22,6 +22,7 @@
 # include "../libft/libft.h"
 # include "util_struct.h"
 # include "map_struct.h"
+# include "render_struct.h"
 
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -35,7 +36,7 @@ t_map	*init_map(char *file_name);
 void	error_handler(t_error error, t_game *game, t_map *map);
 int		parse_cub_file(char *file_name, t_map *map, t_game *game);
 void	free_map_resources(t_game *game, t_map *map);
-int		parse_map(char **lines, t_map *map);
+int		parse_map(char **lines, t_map *map, t_game *game);
 int		is_valid_extension(char *file_name, char *extension);
 int		is_valid_file(char *file_name);
 int		init_game(t_game *game, t_map *map);
@@ -44,7 +45,7 @@ int     init_map_values(t_map *map);
 void    cleanup_map(t_map *map);
 void    cleanup_game(t_game *game);
 void    set_player_direction(t_game *game, char direction);
-int     check_walls(char **grid, t_map *map);
+int     check_walls(char **grid, t_map *map, t_game *game);
 int     process_line(char *line, t_map *map, char ***map_lines, int *map_size);
 int     check_settings_complete(t_map *map);
 int     parse_settings(const char *line, t_map *map, t_game *game);

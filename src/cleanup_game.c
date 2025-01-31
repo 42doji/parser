@@ -17,12 +17,11 @@ void    cleanup_game(t_game *game)
     if (!game)
         return;
     
-    if (game->mlx_ptr)
+    if (game->mlx)
     {
-        if (game->win_ptr)
-            mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-        if (game->img.img_ptr)
-            mlx_destroy_image(game->mlx_ptr, game->img.img_ptr);
-        // Free MLX itself if needed
+        if (game->win)
+            mlx_destroy_window(game->mlx, game->win);
+        if (game->img.img)
+            mlx_destroy_image(game->mlx, game->img.img);
     }
 }
