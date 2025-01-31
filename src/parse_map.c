@@ -12,17 +12,17 @@
 
 #include "cub3d.h"
 
-static int is_valid_map_char(char c)
+static int	is_valid_map_char(char c)
 {
     return (c == '0' || c == '1' || c == 'N' || 
             c == 'S' || c == 'E' || c == 'W' || c == ' ');
 }
 
-static int validate_map_chars(char **grid, int height, int width)
+static int    validate_map_chars(char **grid, int height, int width)
 {
-    int i;
-    int j;
-    int player_count;
+    int    i;
+    int    j;
+    int    player_count;
 
     player_count = 0;
     i = 0;
@@ -58,10 +58,10 @@ static int validate_map_chars(char **grid, int height, int width)
     return (1);
 }
 
-static int check_walls(char **grid, int height, int width)
+static int    check_walls(char **grid, int height, int width)
 {
-    int i;
-    int j;
+    int    i;
+    int    j;
 
     i = 0;
     while (i < height)
@@ -91,10 +91,10 @@ static int check_walls(char **grid, int height, int width)
     return (1);
 }
 
-static int count_map_lines(char **lines)
+static int    count_map_lines(char **lines)
 {
-    int count;
-    int i;
+    int    count;
+    int    i;
 
     count = 0;
     i = 0;
@@ -107,11 +107,11 @@ static int count_map_lines(char **lines)
     return (count);
 }
 
-static int get_map_width(char **lines)
+static int    get_map_width(char **lines)
 {
-    int max_width;
-    int current_width;
-    int i;
+    int    max_width;
+    int    current_width;
+    int    i;
 
     max_width = 0;
     i = 0;
@@ -125,11 +125,11 @@ static int get_map_width(char **lines)
     return (max_width);
 }
 
-static char **create_map_grid(char **lines, int height, int width)
+static char    **create_map_grid(char **lines, int height, int width)
 {
-    char **grid;
-    int i;
-    int j;
+    char    **grid;
+    int    i;
+    int    j;
 
     grid = (char **)malloc(sizeof(char *) * (height + 1));
     if (!grid)
@@ -163,10 +163,10 @@ static char **create_map_grid(char **lines, int height, int width)
     return (grid);
 }
 
-int parse_map(char **lines, t_map *map)
+int		parse_map(char **lines, t_map *map)
 {
-    int height;
-    int width;
+    int	height;
+    int	width;
 
     height = count_map_lines(lines);
     if (height < 3)
