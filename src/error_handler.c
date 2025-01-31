@@ -39,8 +39,12 @@ void    error_handler(t_error error, t_game *game, t_map *map)
         "Error: Game initialization failed",
         "Error: Duplicate key detected"
     };
+
     if (error >= 0 && error < (int)(sizeof(error_msg) / sizeof(error_msg[0])))
+    {
+        ft_putstr_fd("Error\n", 2);
         ft_putendl_fd((char *)error_msg[error], 2);
+    }
     else
         ft_putendl_fd("Error: Unknown error", 2);
 
