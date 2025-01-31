@@ -102,7 +102,7 @@ int parse_cub_file(char *file_name, t_map *map)
 
     map_lines = NULL;
     map_size = 0;
-    while (get_next_line(fd, &line) > 0)
+    while ((line = get_next_line(fd)) != NULL)
     {
         if (ft_strlen(line) > 0)
         {
@@ -117,13 +117,15 @@ int parse_cub_file(char *file_name, t_map *map)
             }
             else
             {
-                map_lines = realloc(map_lines, sizeof(char *) * (map_size + 2));
-                if (!map_lines)
+                char **temp = realloc(map_lines, sizeof(char *) * (map_size + 2));
+                if (!temp)
                 {
                     free(line);
                     close(fd);
+                    free_split(map_lines);
                     return (error_handler(MALLOC_ERROR), 0);
                 }
+                map_lines = temp;
                 map_lines[map_size] = ft_strdup(line);
                 if (!map_lines[map_size])
                 {
