@@ -25,37 +25,6 @@ static t_map	*create_map(void)
 	return (map);
 }
 
-static int	init_map_values(t_map *map)
-{
-	int	i;
-
-	if (!map)
-		return (0);
-	i = 0;
-	while (i < TEXTURE_COUNT)
-	{
-		map->texture[i].path = NULL;
-		map->texture[i].img.img = NULL;
-		map->texture[i].img.addr = NULL;
-		map->texture[i].img.bits_per_pixel = 0;
-		map->texture[i].img.line_length = 0;
-		map->texture[i].img.endian = 0;
-		map->texture[i].img.width = 0;
-		map->texture[i].img.height = 0;
-		i++;
-	}
-	map->floor_color.r = -1;
-	map->floor_color.g = -1;
-	map->floor_color.b = -1;
-	map->ceiling_color.r = -1;
-	map->ceiling_color.g = -1;
-	map->ceiling_color.b = -1;
-	map->width = -1;
-	map->height = -1;
-	map->grid = NULL;
-	return (1);
-}
-
 static void	print_map(t_map *map)
 {
 	int	i;
@@ -93,53 +62,6 @@ static int	print_init_map(t_map *map)
 	printf("MAP INIT END--------\n");
 	printf("--------------------\n");
 	return (1);
-}
-
-static void	free_textures(t_map *map)
-{
-	int	i;
-
-	if (!map)
-		return ;
-	i = 0;
-	while (i < TEXTURE_COUNT)
-	{
-		if (map->texture[i].path)
-		{
-			free(map->texture[i].path);
-			map->texture[i].path = NULL;
-		}
-		i++;
-	}
-}
-
-static void	free_grid(t_map *map)
-{
-	int	i;
-
-	if (!map || !map->grid)
-		return ;
-	i = 0;
-	while (i < map->height)
-	{
-		if (map->grid[i])
-		{
-			free(map->grid[i]);
-			map->grid[i] = NULL;
-		}
-		i++;
-	}
-	free(map->grid);
-	map->grid = NULL;
-}
-
-void	cleanup_map(t_map *map)
-{
-	if (!map)
-		return ;
-	free_textures(map);
-	free_grid(map);
-	free(map);
 }
 
 t_map	*init_map(char *file_name)
