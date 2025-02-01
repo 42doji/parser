@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int  process_line(char *line, t_map *map, char ***map_lines, int *map_size)
+int	process_line(char *line, t_map *map, char ***map_lines, int *map_size)
 {
 	trim_line_endings(line);
 	if (ft_strlen(line) > 0)

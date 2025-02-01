@@ -27,6 +27,7 @@ static int	read_cub_file(int fd, t_map *map, char ***map_lines, int *map_size)
 		{
 			free(line);
 			free_map_resources(NULL, map);
+			free_split(*map_lines);
 			*map_lines = NULL;
 			get_next_line_cleanup(fd);
 			error_handler(MAP_SIZE_ERROR, NULL, map);
