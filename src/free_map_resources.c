@@ -20,11 +20,15 @@ static void	free_textures(t_game *game, t_map *map)
 	while (i < TEXTURE_COUNT)
 	{
 		if (map->texture[i].path)
+		{
 			free(map->texture[i].path);
-		if (map->texture[i].img.img)
+			map->texture[i].path = NULL;
+		}
+		if (game && game->mlx && map->texture[i].img.img)
+		{
 			mlx_destroy_image(game->mlx, map->texture[i].img.img);
-		map->texture[i].path = NULL;
-		map->texture[i].img.img = NULL;
+			map->texture[i].img.img = NULL;
+		}
 		map->texture[i].img.addr = NULL;
 		i++;
 	}
@@ -34,11 +38,15 @@ static void	free_grid(t_map *map)
 {
 	int	i;
 
-	if (!map->grid)
+	if (!map || !map->grid)
 		return ;
 	i = 0;
-	while (i < map->height)
-		free(map->grid[i++]);
+	while (i < map->height && map->grid[i])
+	{
+		free(map->grid[i]);
+		map->grid[i] = NULL;
+		i++;
+	}
 	free(map->grid);
 	map->grid = NULL;
 }

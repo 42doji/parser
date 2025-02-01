@@ -16,7 +16,7 @@ static t_map	*create_map(void)
 {
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = (t_map *)ft_calloc(1, sizeof(t_map));
 	if (!map)
 	{
 		error_handler(MALLOC_ERROR, NULL, NULL);
@@ -74,22 +74,25 @@ t_map	*init_map(char *file_name)
 		return (NULL);
 	if (!init_map_values(map))
 	{
-		cleanup_map(map);
+		free_map_resources(NULL, map);
 		return (NULL);
 	}
 	fd = open(file_name, O_RDONLY);
-	if (fd == -1 || !parse_cub_file(file_name, map))
+	if (fd == -1)
 	{
-		error_handler(TEXTURE_ERROR, NULL, map);
-		cleanup_map(map);
-		if (fd != -1)
-			close(fd);
+		free_map_resources(NULL, map);
+		error_handler(OPEN_ERROR, NULL, NULL);
+		return (NULL);
+	}
+	if (!parse_cub_file(file_name, map))
+	{
+		close(fd);
 		return (NULL);
 	}
 	close(fd);
 	if (!print_init_map(map))
 	{
-		cleanup_map(map);
+		free_map_resources(NULL, map);
 		return (NULL);
 	}
 	return (map);
