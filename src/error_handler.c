@@ -47,10 +47,6 @@ void    error_handler(t_error error, t_game *game, t_map *map)
     }
     else
         ft_putendl_fd("Error: Unknown error", 2);
-	if (error == INVALID_PLAYER_ERROR)
-	{
-		ft_putendl_fd("Error: Invalid player", 2);
-	}
     if (game)
         cleanup_game(game);
     if (map)
