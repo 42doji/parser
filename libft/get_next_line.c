@@ -12,7 +12,11 @@
 
 #include "libft.h"
 
-static char	*left_str[4096];
+#ifndef MAX_FD
+# define MAX_FD 4096
+#endif
+
+static char	*left_str[MAX_FD];
 
 static char	*ft_new_left_str(char *left_str)
 {
@@ -40,85 +44,72 @@ static char	*ft_new_left_str(char *left_str)
 	return (str);
 }
 
-static char	*initialize_left_str(char *left_str, char **buf)
+static char	*ft_get_line(char *left_str)
 {
-	*buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!*buf)
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (!left_str[i])
 		return (NULL);
-	if (!left_str)
-		left_str = ft_strdup("");
-	if (!left_str)
+	while (left_str[i] && left_str[i] != '\n')
+		i++;
+	str = (char *)malloc(sizeof(char) * (i + 2));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (left_str[i] && left_str[i] != '\n')
 	{
-		free(*buf);
-		return (NULL);
+		str[i] = left_str[i];
+		i++;
 	}
-	return (left_str);
+	if (left_str[i] == '\n')
+	{
+		str[i] = left_str[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
-static char	*read_and_append(int fd, char *left_str, char *buf, int *read_size)
-{
-	char	*tmp;
-
-	*read_size = read(fd, buf, BUFFER_SIZE);
-	if (*read_size == -1)
-	{
-		free(buf);
-		free(left_str);
-		return (NULL);
-	}
-	buf[*read_size] = '\0';
-	tmp = ft_strjoin(left_str, buf);
-	free(left_str);
-	if (!tmp)
-	{
-		free(buf);
-		return (NULL);
-	}
-	return (tmp);
-}
-
-static char	*ft_read_to_left_str(int fd, char *left_str)
+static char	*read_to_left_str(int fd, char *left_str)
 {
 	char	*buf;
-	int		read_size;
+	int		read_bytes;
+	char	*temp;
 
-	buf = NULL;
-	left_str = initialize_left_str(left_str, &buf);
-	if (!left_str)
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (NULL);
-	read_size = 1;
-	while (!ft_strchr(left_str, '\n') && read_size != 0)
+	read_bytes = 1;
+	while (!ft_strchr(left_str, '\n') && read_bytes != 0)
 	{
-		left_str = read_and_append(fd, left_str, buf, &read_size);
-		if (!left_str)
+		read_bytes = read(fd, buf, BUFFER_SIZE);
+		if (read_bytes == -1)
 		{
 			free(buf);
 			return (NULL);
 		}
+		buf[read_bytes] = '\0';
+		temp = ft_strjoin(left_str, buf);
+		free(left_str);
+		left_str = temp;
 	}
 	free(buf);
 	return (left_str);
-}
-
-void	get_next_line_cleanup(int fd)
-{
-	if (fd >= 0 && fd < 4096)
-	{
-		if (left_str[fd])
-		{
-			free(left_str[fd]);
-			left_str[fd] = NULL;
-		}
-	}
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 4096)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= MAX_FD)
 		return (NULL);
-	left_str[fd] = ft_read_to_left_str(fd, left_str[fd]);
+	if (!left_str[fd])
+		left_str[fd] = ft_strdup("");
+	if (!left_str[fd])
+		return (NULL);
+	left_str[fd] = read_to_left_str(fd, left_str[fd]);
 	if (!left_str[fd])
 	{
 		left_str[fd] = NULL;
@@ -133,4 +124,28 @@ char	*get_next_line(int fd)
 	}
 	left_str[fd] = ft_new_left_str(left_str[fd]);
 	return (line);
+}
+
+void	get_next_line_cleanup(int fd)
+{
+	int	i;
+
+	if (fd == -1)
+	{
+		i = 0;
+		while (i < MAX_FD)
+		{
+			if (left_str[i])
+			{
+				free(left_str[i]);
+				left_str[i] = NULL;
+			}
+			i++;
+		}
+	}
+	else if (fd >= 0 && fd < MAX_FD && left_str[fd])
+	{
+		free(left_str[fd]);
+		left_str[fd] = NULL;
+	}
 }
