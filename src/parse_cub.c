@@ -44,15 +44,17 @@ static int	read_cub_file(int fd, t_map *map, char ***map_lines, int *map_size)
 	return (1);
 }
 
-static int	finalize_parsing(int fd, char **map_lines, t_map *map)
+static int	finalize_parsing(int fd, char ***map_lines, t_map *map)
 {
-	if (!parse_map(map_lines, map))
+	if (!parse_map(*map_lines, map))
 	{
-		free_split(map_lines);
-		close(fd);
-		return (0);
+		free_split(*map_lines);
+		*map_lines = NULL;
+		free_map_resources(NULL, map);
+		get_next_line_cleanup(fd);
+		error_handler(MAP_ERROR, NULL, map);
 	}
-	free_split(map_lines);
+	free_split(*map_lines);
 	close(fd);
 	return (1);
 }
@@ -76,5 +78,5 @@ int	parse_cub_file(char *file_name, t_map *map)
 		close(fd);
 		return (0);
 	}
-	return (finalize_parsing(fd, map_lines, map));
+	return (finalize_parsing(fd, &map_lines, map));
 }
