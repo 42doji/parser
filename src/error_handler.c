@@ -48,19 +48,10 @@ void    error_handler(t_error error, t_game *game, t_map *map)
     else
         ft_putendl_fd("Error: Unknown error", 2);
 
-    if (game && game->mlx)
-    {
-        if (game->img.img)
-            mlx_destroy_image(game->mlx, game->img.img);
-        if (game->win)
-            mlx_destroy_window(game->mlx, game->win);
-        mlx_destroy_display(game->mlx);
-        free(game->mlx);
-    }
-    if (map)
-        cleanup_map(map);
     if (game)
         cleanup_game(game);
+    if (map)
+        cleanup_map(map);
     get_next_line_cleanup(-1);
     exit(EXIT_FAILURE);
 }
