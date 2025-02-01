@@ -52,7 +52,7 @@ int     parse_settings(const char *line, t_map *map);
 int     append_map_line(char ***map_lines, int *map_size, char *line, t_map *map);
 void    trim_line_endings(char *line);
 int     parse_texture(const char *line, t_map *map, int texture_index, const char *key, t_game *game);
-int     validate_map_chars(char **grid, int height, int width);
+int     validate_map_chars(char **grid, int height, int width, t_map *map);
 int     is_valid_map_char(char c);
 int     init_grid_row(char **grid, int i, int width, t_map *map);
 char    **create_map_grid(char **lines, int height, int width, t_map *map);

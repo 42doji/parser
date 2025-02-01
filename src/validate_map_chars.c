@@ -23,18 +23,17 @@ static void	print_map_error(char c, int i, int j)
 	ft_putstr_fd("\n", 2);
 }
 
-
-static int	validate_map_size(char **grid, int height, int width)
+static int	validate_map_size(char **grid, int height, int width, t_map *map)
 {
 	if (!grid || height <= 0 || width <= 0)
 	{
-		error_handler(MAP_SIZE_ERROR, NULL, NULL);
+		error_handler(MAP_SIZE_ERROR, NULL, map);
 		return (0);
 	}
 	return (1);
 }
 
-static int	validate_map_content(char **grid, int height, int width)
+static int	validate_map_content(char **grid, int height, int width, t_map *map)
 {
 	int	i;
 	int	j;
@@ -48,7 +47,7 @@ static int	validate_map_content(char **grid, int height, int width)
 			if (!is_valid_map_char(grid[i][j]))
 			{
 				print_map_error(grid[i][j], i, j);
-				error_handler(MAP_CHAR_ERROR, NULL, NULL);
+				error_handler(MAP_CHAR_ERROR, NULL, map);
 				return (0);
 			}
 			j++;
@@ -83,15 +82,15 @@ static int	check_player_count(char **grid, int height, int width)
 	return (count);
 }
 
-int	validate_map_chars(char **grid, int height, int width)
+int	validate_map_chars(char **grid, int height, int width, t_map *map)
 {
-	if (!validate_map_size(grid, height, width))
+	if (!validate_map_size(grid, height, width, map))
 		return (0);
-	if (!validate_map_content(grid, height, width))
+	if (!validate_map_content(grid, height, width, map))
 		return (0);
 	if (check_player_count(grid, height, width) != 1)
 	{
-		error_handler(MAP_PLAYER_ERROR, NULL, NULL);
+		error_handler(MAP_PLAYER_ERROR, NULL, map);
 		return (0);
 	}
 	return (1);

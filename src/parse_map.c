@@ -93,11 +93,8 @@ int	parse_map(char **lines, t_map *map)
 	map->grid = create_map_grid(lines, map->height, map->width, map);
 	if (!map->grid)
 		return (0);
-	if (!validate_map_chars(map->grid, map->height, map->width))
-	{
-		error_handler(MAP_SIZE_ERROR, NULL, map);
+	if (!validate_map_chars(map->grid, map->height, map->width, map))
 		return (0);
-	}
 	if (!check_walls(map->grid, map))
 		return (0);
 	return (1);
