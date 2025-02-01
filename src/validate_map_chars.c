@@ -28,7 +28,7 @@ static int	validate_map_size(char **grid, int height, int width)
 {
 	if (!grid || height <= 0 || width <= 0)
 	{
-		error_handler(MAP_SIZE_ERROR);
+		error_handler(MAP_SIZE_ERROR, NULL, NULL);
 		return (0);
 	}
 	return (1);
@@ -48,7 +48,7 @@ static int	validate_map_content(char **grid, int height, int width)
 			if (!is_valid_map_char(grid[i][j]))
 			{
 				print_map_error(grid[i][j], i, j);
-				error_handler(MAP_CHAR_ERROR);
+				error_handler(MAP_CHAR_ERROR, NULL, NULL);
 				return (0);
 			}
 			j++;
@@ -91,7 +91,7 @@ int	validate_map_chars(char **grid, int height, int width)
 		return (0);
 	if (check_player_count(grid, height, width) != 1)
 	{
-		error_handler(MAP_PLAYER_ERROR);
+		error_handler(MAP_PLAYER_ERROR, NULL, NULL);
 		return (0);
 	}
 	return (1);

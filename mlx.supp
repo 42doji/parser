@@ -69,3 +69,28 @@
    fun:XGetVisualInfo
    ...
 }
+
+
+{
+   MLX_XextAddDisplay
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:XextAddDisplay
+   ...
+}
+
+{
+   MLX_XextCreateExtension
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:XextCreateExtension
+   ...
+}
+
+{
+   MLX_mlx_init_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:mlx_init
+   ...
+}
