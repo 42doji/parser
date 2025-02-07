@@ -87,13 +87,13 @@ static int  parse_color(const char *line, t_color *color, t_map *map)
 int  parse_settings(const char *line, t_map *map)
 {
     if (ft_strncmp(line, "NO ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_NORTH, "NO", NULL));
+        return (parse_texture(line, map, TEXTURE_NORTH));
     else if (ft_strncmp(line, "SO ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_SOUTH, "SO", NULL));
+        return (parse_texture(line, map, TEXTURE_SOUTH));
     else if (ft_strncmp(line, "EA ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_EAST, "EA", NULL));
+        return (parse_texture(line, map, TEXTURE_EAST));
     else if (ft_strncmp(line, "WE ", 3) == 0)
-        return (parse_texture(line, map, TEXTURE_WEST, "WE", NULL));
+        return (parse_texture(line, map, TEXTURE_WEST));
     else if (ft_strncmp(line, "F ", 2) == 0)
         return (parse_color(line, &map->floor_color, map));
     else if (ft_strncmp(line, "C ", 2) == 0)

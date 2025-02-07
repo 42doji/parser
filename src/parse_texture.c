@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int  parse_texture(const char *line, t_map *map, int texture_index, const char *key, t_game *game)
+int  parse_texture(const char *line, t_map *map, int texture_index)
 {
     char    **split;
     char    *path;
@@ -10,23 +10,20 @@ int  parse_texture(const char *line, t_map *map, int texture_index, const char *
     if (!split || !split[1] || split[2])
     {
         free_split(split);
-        error_handler(TEXTURE_ERROR, game, map);
+        error_handler(TEXTURE_ERROR, NULL, map);
         return (0);
     }
     if (map->texture[texture_index].path)
     {
         free_split(split);
-        ft_putstr_fd("Error: Duplicate key '", 2);
-        ft_putstr_fd(key, 2);
-        ft_putendl_fd("'", 2);
-        error_handler(DUPLICATE_KEY_ERROR, game, map);
+        error_handler(DUPLICATE_KEY_ERROR, NULL, map);
         return (0);
     }
     path = ft_strdup(split[1]);
     free_split(split);
     if (!path)
     {
-        error_handler(MALLOC_ERROR, game, map);
+        error_handler(MALLOC_ERROR, NULL, map);
         return (0);
     }
     map->texture[texture_index].path = path;

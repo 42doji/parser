@@ -44,7 +44,7 @@ static char	*ft_new_left_str(char *left_str)
 	return (str);
 }
 
-static char	*ft_get_line(char *left_str)
+char	*ft_get_line(char *left_str)
 {
 	int		i;
 	char	*str;
