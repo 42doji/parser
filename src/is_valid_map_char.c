@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   is_valid_map_char.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doji <doji@student.42gyeongsan.kr>         +#+  +:+       +#+        */
+/*   By: hisong <hisong@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 23:13:06 by doji              #+#    #+#             */
-/*   Updated: 2025/01/31 23:13:07 by doji             ###   ########.fr       */
+/*   Updated: 2025/02/09 01:08:21 by hisong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	is_valid_map_char(char c)
 {
-	return (c == '0' || c == '1' || c == 'N' || 
+	return (c == '0' || c == '1' || c == 'N' || \
 		c == 'S' || c == 'E' || c == 'W' || c == ' ');
 }

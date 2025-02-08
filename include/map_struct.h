@@ -17,25 +17,25 @@
 
 typedef struct s_color
 {
-    int r;
-    int g;
-    int b;
-} t_color;
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 typedef struct s_texture
 {
-    char    *path;
-    t_img   img;
-} t_texture;
+	char	*path;
+	t_img	img;
+}	t_texture;
 
 typedef struct s_map
 {
-    t_texture   texture[TEXTURE_COUNT];
-    t_color     floor_color;
-    t_color     ceiling_color;
-    char        **grid;
-    int         width;
-    int         height;
-} t_map;
+	t_texture	texture[TEXTURE_COUNT];
+	t_color		floor_color;
+	t_color		ceiling_color;
+	char		**grid;
+	int			width;
+	int			height;
+}	t_map;
 
 #endif

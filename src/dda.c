@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doji <doji@student.42gyeongsan.kr>         +#+  +:+       +#+        */
+/*   By: hisong <hisong@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 21:00:00 by doji              #+#    #+#             */
-/*   Updated: 2025/01/31 21:00:00 by doji             ###   ########.fr       */
+/*   Updated: 2025/02/09 00:56:16 by hisong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	move_ray(t_ray *ray)
 
 static int	is_out_of_bounds(t_game *game, t_ray *ray)
 {
-	if (ray->map_x < 0 || ray->map_x >= game->map->width ||
+	if (ray->map_x < 0 || ray->map_x >= game->map->width || \
 		ray->map_y < 0 || ray->map_y >= game->map->height)
 	{
 		return (1);
