@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-static int validate_arguments(int argc, char *filename)
+static int	validate_arguments(int argc, char *filename)
 {
 	if (argc != 2)
 	{
@@ -24,20 +24,22 @@ static int validate_arguments(int argc, char *filename)
 		error_handler(INVALID_FILE_EXTENSION, NULL, NULL);
 		return (0);
 	}
-	if (!is_valid_file(filename)) return (0);
+	if (!is_valid_file(filename))
+		return (0);
 	return (1);
 }
 
-static t_map *setup_map(char *filename)
+static t_map	*setup_map(char *filename)
 {
-	t_map *map;
+	t_map	*map;
 
 	map = init_map(filename);
-	if (!map) error_handler(MAP_INITIALIZATION_ERROR, NULL, NULL);
+	if (!map)
+		error_handler(MAP_INITIALIZATION_ERROR, NULL, NULL);
 	return (map);
 }
 
-static int setup_game(t_game *game, t_map *map)
+static int	setup_game(t_game *game, t_map *map)
 {
 	if (!init_game(game, map))
 	{
@@ -48,7 +50,7 @@ static int setup_game(t_game *game, t_map *map)
 	return (1);
 }
 
-static void setup_hooks(t_game *game)
+static void	setup_hooks(t_game *game)
 {
 	mlx_hook(game->win, 2, 1L << 0, handle_keypress, game);
 	mlx_hook(game->win, 3, 1L << 1, handle_keyrelease, game);
@@ -56,10 +58,10 @@ static void setup_hooks(t_game *game)
 	mlx_loop_hook(game->mlx, game_loop, game);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_map *map;
-	t_game game;
+	t_map	*map;
+	t_game	game;
 
 	ft_bzero(&game, sizeof(t_game));
 	if (!validate_arguments(argc, argv[1]))

@@ -6,7 +6,7 @@
 /*   By: doji <doji@student.42gyeongsan.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:30:00 by doji              #+#    #+#             */
-/*   Updated: 2025/01/31 18:30:00 by doji             ###   ########.fr       */
+/*   Updated: 2025/02/09 00:50:28 by hisong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static char	**allocate_grid(int height)
 	return (grid);
 }
 
-static void	fill_grid(char **grid, char **lines, int height, int width, t_map *map)
+static void	fill_grid(char **grid, char **lines, int height, int width,
+		t_map *map)
 {
 	int	i;
 	int	j;
