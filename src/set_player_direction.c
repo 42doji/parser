@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_direction.c                                 :+:      :+:    :+:   */
+/*   set_player_direction.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doji <doji@student.42gyeongsan.kr>         +#+  +:+       +#+        */
+/*   By: hisong <hisong@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:30:00 by doji              #+#    #+#             */
-/*   Updated: 2025/01/31 17:30:00 by doji             ###   ########.fr       */
+/*   Updated: 2025/02/10 16:09:32 by hisong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,30 @@ static void	set_player_vector(t_player *player, char direction)
 	}
 }
 
+static void	set_plane_x(t_player *player, char direction)
+{
+	if (direction == 'N')
+		player->plane_x = 0.66;
+	else if (direction == 'S')
+		player->plane_x = -0.66;
+	else
+		player->plane_x = 0;
+}
+
+static void	set_plane_y(t_player *player, char direction)
+{
+	if (direction == 'E')
+		player->plane_y = 0.66;
+	else if (direction == 'W')
+		player->plane_y = -0.66;
+	else
+		player->plane_y = 0;
+}
+
 static void	set_camera_plane(t_player *player, char direction)
 {
-	if (direction == 'N' || direction == 'S')
-	{
-		player->plane_x = (direction == 'N') ? 0.66 : -0.66;
-		player->plane_y = 0;
-	}
-	else if (direction == 'E' || direction == 'W')
-	{
-		player->plane_x = 0;
-		player->plane_y = (direction == 'E') ? 0.66 : -0.66;
-	}
+	set_plane_x(player, direction);
+	set_plane_y(player, direction);
 }
 
 void	set_player_direction(t_game *game, char direction)

@@ -37,6 +37,14 @@ static void	print_map(t_map *map)
 	}
 }
 
+static const char	*get_texture_path(t_texture texture)
+{
+	if (texture.path)
+		return (texture.path);
+	else
+		return ("Not Loaded");
+}
+
 static int	print_init_map(t_map *map)
 {
 	if (!map)
@@ -44,14 +52,10 @@ static int	print_init_map(t_map *map)
 	printf("--------------------\n");
 	printf("MAP INIT------------\n");
 	printf("--------------------\n");
-	printf("NO: %s\n", map->texture[TEXTURE_NORTH].path ? \
-		map->texture[TEXTURE_NORTH].path : "Not Loaded");
-	printf("SO: %s\n", map->texture[TEXTURE_SOUTH].path ? \
-		map->texture[TEXTURE_SOUTH].path : "Not Loaded");
-	printf("EA: %s\n", map->texture[TEXTURE_EAST].path ? \
-		map->texture[TEXTURE_EAST].path : "Not Loaded");
-	printf("WE: %s\n", map->texture[TEXTURE_WEST].path ? \
-		map->texture[TEXTURE_WEST].path : "Not Loaded");
+	printf("NO: %s\n", get_texture_path(map->texture[TEXTURE_NORTH]));
+	printf("SO: %s\n", get_texture_path(map->texture[TEXTURE_SOUTH]));
+	printf("EA: %s\n", get_texture_path(map->texture[TEXTURE_EAST]));
+	printf("WE: %s\n", get_texture_path(map->texture[TEXTURE_WEST]));
 	printf("floor_color: %d, %d, %d\n", map->floor_color.r,
 		map->floor_color.g, map->floor_color.b);
 	printf("ceiling_color: %d, %d, %d\n", map->ceiling_color.r,
