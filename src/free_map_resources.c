@@ -57,5 +57,6 @@ void	free_map_resources(t_game *game, t_map *map)
 		return ;
 	free_textures(game, map);
 	free_grid(map);
+	mlx_destroy_display(game->mlx);
 	free(map);
 }
